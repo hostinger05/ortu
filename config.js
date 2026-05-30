@@ -22,5 +22,5 @@ window.GITHUB_CONFIG = {
   owner:  "hostinger05",
   repo:   "ortu",
   branch: "main",
-  token:  "",   // ← isi token GitHub Anda di sini (file ini tidak di-commit)
+  token:  "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",   // ← isi token GitHub Anda di sini (file ini tidak di-commit)
 };
