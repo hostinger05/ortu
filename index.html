@@ -7,8 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <!-- ⚠️ DATABASE & CONFIG harus dimuat SEBELUM Vue agar data tersedia saat login -->
-<script src="datasiswaganjil.js"></script>
-<script src="datasiswagenap.js"></script>
+<script src="datasiswa.js"></script>
 <script src="config.js" onerror="console.warn('config.js tidak ditemukan — fitur ganti password permanen nonaktif')"></script>
 <!-- Library PDF (dimuat di head agar tersedia saat download) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -2624,9 +2623,7 @@ const showDownloadConfirm = ref(false);
       // Cek password lama dengan data yang sedang aktif di memori
       const nisnAktif = studentData.value.nisn || '';
       const sem       = selectedSemester.value || 'GANJIL';
-      const dbVarKey  = sem === 'GENAP' ? 'SISWA_GENAP' : 'SISWA_GANJIL';
-      const dbVarDecl = sem === 'GENAP' ? 'window.SISWA_GENAP' : 'window.SISWA_GANJIL';
-      const dataAktif = window[dbVarKey]?.[nisnAktif];
+      const dataAktif = window.SISWA_DATA?.[sem]?.[nisnAktif];
       const storedPw  = dataAktif ? (dataAktif.password || '').trim() : '';
       const validOld  = storedPw === '' ? nisnAktif : storedPw;
       if (pwOld.value !== validOld) {
@@ -2657,32 +2654,31 @@ const showDownloadConfirm = ref(false);
         if (!gasData.success) throw new Error(gasData.message || 'Gagal update di Google Sheet.');
 
         // ── Update in-memory agar re-login langsung bisa pakai password baru ──
-        if (window[dbVarKey]?.[nisnAktif]) {
-          window[dbVarKey][nisnAktif].password = pwNew.value;
+        if (window.SISWA_DATA?.[sem]?.[nisnAktif]) {
+          window.SISWA_DATA[sem][nisnAktif].password = pwNew.value;
         }
 
-        // ── Push file JS semester yang sesuai ke GitHub (opsional, jika token ada) ──
+        // ── Push datasiswa.js ke GitHub (opsional, jika token ada) ──
         const ghCfg = window.GITHUB_CONFIG || {};
         const owner  = ghCfg.owner  || '';
         const repo   = ghCfg.repo   || '';
         const branch = ghCfg.branch || 'main';
         const token  = ghCfg.token  || '';
-        const dbFile = sem === 'GENAP' ? 'datasiswagenap.js' : 'datasiswaganjil.js';
 
         if (owner && repo && token) {
-          const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/${dbFile}`;
+          const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents/datasiswa.js`;
           const ghHeaders = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' };
           const getRes = await fetch(`${apiBase}?ref=${branch}&t=${Date.now()}`, { headers: ghHeaders });
           if (getRes.ok) {
             const fileMeta   = await getRes.json();
             const currentSha = fileMeta.sha;
-            const newContent = `/**\n * DATABASE SISWA SEMESTER ${sem} \u2014 Portal Akademik SMAN 5 Pinrang\n * Di-generate otomatis \u2014 jangan edit manual.\n */\n\n${dbVarDecl} = ${JSON.stringify(window[dbVarKey], null, 2)};\n`;
+            const newContent = `window.SISWA_DATA = ${JSON.stringify(window.SISWA_DATA, null, 2)};\n`;
             const encoded    = btoa(unescape(encodeURIComponent(newContent)));
             await fetch(apiBase, {
               method: 'PUT',
               headers: { ...ghHeaders, 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                message: `[portal] Update password ${nisnAktif} (${sem})`,
+                message: `[portal] Update password ${nisnAktif}`,
                 content: encoded,
                 sha: currentSha,
                 branch,
@@ -2690,7 +2686,6 @@ const showDownloadConfirm = ref(false);
             });
           }
         }
-
         passwordInput.value = pwNew.value;
         pwLoading.value  = false;
         pwMsgType.value  = 'ok';
@@ -2941,12 +2936,12 @@ function buildMapelHTML(mapel, getAssessmentDetailForMapel) {
         // ── Ambil data dari file sesuai semester ──
         const semester = selectedSemester.value || 'GANJIL';
         const semesterData = semester === 'GENAP'
-          ? (window.SISWA_GENAP  || null)
-          : (window.SISWA_GANJIL || null);
+          ? (window.SISWA_DATA?.['GENAP']  || null)
+          : (window.SISWA_DATA?.['GANJIL'] || null);
 
         if (!semesterData) throw new Error(
           'Database semester ' + semester + ' belum dimuat. ' +
-          'Pastikan file datasiswa' + semester.toLowerCase() + '.js ada di repo.'
+          'Pastikan file datasiswa.js ada di repo.'
         );
 
         const nisnStr = nisnInput.value.toString().trim();
@@ -3009,7 +3004,6 @@ function buildMapelHTML(mapel, getAssessmentDetailForMapel) {
         abList: [], nlList: []
       };
     };
-
 
 
     const parsedSchedule = computed(() => {
