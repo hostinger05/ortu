@@ -6,11 +6,6 @@
 <title>SMAN 5 Pinrang — Portal Akademik Siswa</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<script src="config.js" onerror="console.warn('config.js tidak ditemukan')"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
-<script src="config.js" onerror="console.warn('config.js tidak ditemukan')"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
@@ -95,8 +90,10 @@ const _sp5p_loadData = async () => {
 // Anti-DevTools: hapus SISWA_DATA jika DevTools terbuka
 (function() {
   const _clear = () => {
-    try { delete window.SISWA_DATA; } catch(e) { window.SISWA_DATA = null; }
-    try { delete window.__SP5P; }    catch(e) { window.__SP5P = undefined; }
+    try { delete window.SISWA_DATA;    } catch(e) { window.SISWA_DATA    = null;      }
+    try { delete window.__SP5P;        } catch(e) { window.__SP5P        = undefined; }
+    try { delete window.GITHUB_CONFIG; } catch(e) { window.GITHUB_CONFIG = {};        }
+    try { delete window.__CFG;         } catch(e) { window.__CFG         = undefined; }
   };
   let _wasOpen = false;
 
@@ -119,8 +116,31 @@ const _sp5p_loadData = async () => {
   document.addEventListener("contextmenu", e => e.preventDefault());
 })();
 
-// Mulai load data — Vue app akan await ini sebelum login
-window._sp5pReady = _sp5p_loadData();
+// ── Fetch + decrypt config.js (no-cache, tidak terlihat di F12 Sources) ──
+const _sp5p_loadConfig = async () => {
+  try {
+    const res = await fetch("config.js?v=" + Date.now(), {
+      cache:   "no-store",
+      headers: { "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache" }
+    });
+    if (!res.ok) return;
+    const js = await res.text();
+    const marker = 'window.__CFG="';
+    const idx    = js.indexOf(marker);
+    if (idx !== -1) {
+      const b64   = js.substring(idx + marker.length, js.indexOf('"', idx + marker.length));
+      const plain = await _sp5p_dec(b64);
+      if (plain) window.GITHUB_CONFIG = JSON.parse(plain);
+    } else if (js.indexOf("window.GITHUB_CONFIG") !== -1) {
+      // Fallback format lama (plaintext)
+      window.GITHUB_CONFIG = (new Function(js + "; return window.GITHUB_CONFIG;"))();
+    }
+    try { delete window.__CFG; } catch(e) { window.__CFG = undefined; }
+  } catch(e) { window.GITHUB_CONFIG = {}; }
+};
+
+// Mulai load datasiswa.js + config.js secara paralel
+window._sp5pReady = Promise.all([_sp5p_loadData(), _sp5p_loadConfig()]);
 </script>
 <style>
   :root {
@@ -574,20 +594,6 @@ window._sp5pReady = _sp5p_loadData();
   }
   @media (max-width: 480px) { .user-chip span { display: none; } }
 
-  .btn-logout {
-    padding: 8px 16px;
-    background: rgba(239,71,111,0.15);
-    border: 1px solid rgba(239,71,111,0.3);
-    border-radius: 10px; color: #ff8fab;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
-  }
-  .btn-logout:hover {
-    background: rgba(239,71,111,0.25);
-    border-color: rgba(239,71,111,0.5);
-    color: white;
-  }
 
   .bottom-tab {
     position: fixed;
@@ -1511,10 +1517,7 @@ window._sp5pReady = _sp5p_loadData();
           <div class="user-avatar">{{ studentData.nama ? studentData.nama[0].toUpperCase() : 'S' }}</div>
           <span>{{ studentData.nama }}</span>
         </div>
-        <button class="btn-logout" @click="logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span style="display:none" class="logout-text">Keluar</span>
-        </button>
+
       </div>
     </nav>
 
@@ -2550,9 +2553,10 @@ createApp({
           abList: [], nlList: []
         };
 
-        // Hapus data sensitif & reload data baru dari server
-        try { delete window.SISWA_DATA; } catch(e) { window.SISWA_DATA = null; }
-        window._sp5pReady = window._sp5p_loadData();
+        // Hapus data sensitif & reload data + config baru dari server
+        try { delete window.SISWA_DATA;    } catch(e) { window.SISWA_DATA    = null; }
+        try { delete window.GITHUB_CONFIG; } catch(e) { window.GITHUB_CONFIG = {};   }
+        window._sp5pReady = Promise.all([window._sp5p_loadData(), window._sp5p_loadConfig()]);
 
       } catch (e) {
         window.location.reload();
@@ -2863,33 +2867,7 @@ createApp({
       }
     };
 
-    const logout = () => {
-      sessionStorage.setItem('sp5p_logged_out', '1');
-      loggedIn.value   = false;
-      currentTab.value = 'home';
-      document.body.style.overflow = '';
 
-      // ── Hapus data sensitif dari memori ─────────────────────────
-      studentData.value = {
-        nisn: '', nama: '', kelas: '',
-        nilaiAmbang: '', kehadiranAmbang: '',
-        rawSchedule: '', rawAttendanceData: '',
-        rawAssessmentData: '', rawNotesData: '',
-        abList: [], nlList: []
-      };
-      try { delete window.SISWA_DATA; } catch(e) { window.SISWA_DATA = null; }
-
-      // ── Reload datasiswa.js fresh dari server ────────────────────
-      // Memastikan data terbaru selalu dimuat saat halaman login tampil
-      window._sp5pReady = window._sp5p_loadData();
-
-      loadSaved().then(s => {
-        if (s) {
-          nisnInput.value     = s.nisn     || '';
-          passwordInput.value = s.password || '';
-        }
-      });
-    };
 
     // ── PARSED DATA ──
     const parsedSchedule = computed(() => {
@@ -3202,7 +3180,7 @@ createApp({
     return {
       loggedIn, loading, nisnInput, passwordInput, errorMessage, studentData,
       logoSrc, bgImageSrc, showDownloadConfirm, showResetConfirm, resetAllData,
-      currentTab, tabs, login, logout, switchTab,
+      currentTab, tabs, login, switchTab,
       parsedSchedule, parsedAttendance, parsedAssessment, parsedNotes,
       getStatusBadgeClass, attendanceTotal, attendancePercentage,
       showAttendanceModal, showAssessmentModal,
@@ -3238,8 +3216,6 @@ createApp({
 .bar-tip-leave-to     { opacity: 0; transform: translateY(-4px) scale(0.97); }
 
 @media (min-width: 900px) {
-  .btn-logout .logout-text { display: inline!important; }
-  .btn-logout { padding: 8px 18px; }
 }
 </style>
 </body>
