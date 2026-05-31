@@ -2599,8 +2599,7 @@ createApp({
       if (!gasUrl) {
         // Tidak ada gasUrl → simpan lokal saja (mode offline)
         await saveSession(saved?.nisn || '', saved?.kelas || '', pwNew.value);
-        passwordInput.value = pwNew.value;
-        // Update in-memory agar re-login di tab ini berhasil
+        // ⚠️ passwordInput TIDAK diubah — tetap password lama di textbox login
         ['GANJIL','GENAP'].forEach(sem => {
           if (window.SISWA_DATA?.[sem]?.[saved?.nisn]) {
             window.SISWA_DATA[sem][saved.nisn].password = pwNew.value;
@@ -2608,7 +2607,7 @@ createApp({
         });
         pwLoading.value = false;
         pwMsgType.value = 'ok';
-        pwMsg.value = '⚠️ gasUrl belum diisi di config.js. Password hanya tersimpan di sesi ini.';
+        pwMsg.value = '✅ Password berhasil diganti. Tunggu 10 sampai 15 menit agar password benar-benar terganti di server untuk disetujui oleh admin.';
         pwOld.value = ''; pwNew.value = ''; pwConfirm.value = '';
         return;
       }
@@ -2639,8 +2638,10 @@ createApp({
         }
 
         // ── Berhasil: perbarui session lokal & in-memory ─────────────
+        // Simpan password BARU ke session agar login berikutnya langsung pakai baru
         await saveSession(nisn, saved?.kelas || '', pwNew.value);
-        passwordInput.value = pwNew.value;
+        // ⚠️ passwordInput di halaman login TIDAK diubah — tetap password lama
+        // supaya siswa masih bisa login dengan password lama sampai server konfirmasi
         ['GANJIL','GENAP'].forEach(sem => {
           if (window.SISWA_DATA?.[sem]?.[nisn]) {
             window.SISWA_DATA[sem][nisn].password = pwNew.value;
@@ -2649,12 +2650,9 @@ createApp({
 
         pwLoading.value = false;
         pwMsgType.value = 'ok';
-        pwMsg.value = '✅ Password berhasil! Halaman akan dimuat ulang...';
+        pwMsg.value = '✅ Password berhasil diganti. Tunggu 10 sampai 15 menit agar password benar-benar terganti di server untuk disetujui oleh admin.';
         pwOld.value = ''; pwNew.value = ''; pwConfirm.value = '';
-
-        // ── Reload halaman agar datasiswa.js fresh di-fetch dari server ──
-        // Ini memastikan password baru langsung aktif untuk login berikutnya
-        setTimeout(() => { window.location.reload(); }, 1800);
+        // Tidak reload — user tetap di halaman, textbox password login tidak berubah
 
       } catch (err) {
         pwLoading.value = false;
