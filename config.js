@@ -18,7 +18,7 @@ window.GITHUB_CONFIG = {
   owner:  "hostinger05",
   repo:   "ortu",
   branch: "main",
-  token:  "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",        // ← isi token GitHub (opsional, untuk sync file JS)
+  token:  "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",        // ← isi token GitHub (opsional, untuk sync file JS)
 
   // URL Apps Script Web App — wajib diisi untuk fitur ganti password
   gasUrl: "https://script.google.com/macros/s/AKfycby3_7Wg5LJGAbZLizbdSFe4oMKspA0U954WR9ue3eTXsBtOYuLwun_S2W7Y_8XdAjKinA/exec",        // ← contoh: "https://script.google.com/macros/s/AKfyc.../exec"
