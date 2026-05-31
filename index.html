@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <script src="datasiswa.js"></script>
-<script src="config.js" onerror="console.warn('config.js tidak ditemukan — fitur ganti password permanen nonaktif')"></script>
+<script src="config.js" onerror="console.warn('config.js tidak ditemukan')"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.prod.min.js"></script>
@@ -103,6 +103,7 @@
     background: linear-gradient(135deg, #060d1f 0%, #0a1e3d 40%, #0d2b4e 70%, #071526 100%);
   }
 
+  /* Foto background — desktop only */
   .login-bg-photo {
     display: none;
     position: absolute; inset: 0;
@@ -118,6 +119,7 @@
     .login-bg-photo { display: block; }
   }
 
+  /* Animated orbs */
   .orb {
     position: absolute;
     border-radius: 50%;
@@ -129,12 +131,14 @@
   .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, #f4a528, transparent); bottom: -100px; right: -100px; animation-delay: -3s; }
   .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #06d6a0, transparent); top: 40%; left: 30%; animation-delay: -6s; }
 
+  /* Grid dots */
   .grid-dots {
     position: absolute; inset: 0;
     background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 
+  /* Floating shapes */
   .shape {
     position: absolute;
     opacity: 0.07;
@@ -152,6 +156,7 @@
     min-height: 100vh;
   }
 
+  /* Desktop: split layout */
   @media (min-width: 900px) {
     .login-wrapper { justify-content: flex-end; padding-right: 8%; }
     .login-left-panel {
@@ -229,6 +234,7 @@
   .stat-row {
     display: flex; gap: 32px;
   }
+  .stat-item { }
   .stat-item .num {
     font-family: 'Playfair Display', serif;
     font-size: 28px; font-weight: 700;
@@ -252,6 +258,7 @@
     position: relative; overflow: hidden;
   }
 
+  /* Foto background login card — mobile only */
   .login-card-bg {
     position: absolute; inset: 0; z-index: 0;
     background-size: cover; background-position: center; background-repeat: no-repeat;
@@ -264,10 +271,12 @@
     background: linear-gradient(160deg, rgba(6,13,31,0.80) 0%, rgba(10,30,61,0.75) 50%, rgba(7,21,38,0.82) 100%);
     border-radius: 28px;
   }
+  /* Sembunyikan di desktop — desktop pakai login-bg-photo */
   @media (min-width: 900px) {
     .login-card-bg { display: none; }
   }
 
+  /* Pastikan konten card tetap di atas layer foto */
   .login-card > *:not(.login-card-bg) { position: relative; z-index: 1; }
 
   .card-logo {
@@ -406,6 +415,7 @@
     animation: fadeIn 0.4s ease;
   }
 
+  /* TOP NAV */
   .topbar {
     background: var(--navy);
     padding: 0 24px;
@@ -478,6 +488,7 @@
     color: white;
   }
 
+  /* BOTTOM TAB (Mobile) */
   .bottom-tab {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -508,6 +519,7 @@
   .tab-btn.active-notes { color: #fbbf24; }
   .tab-btn.active-server { color: #f87171; }
 
+  /* DESKTOP SIDEBAR */
   .sidebar {
     display: none;
     width: 240px; flex-shrink: 0;
@@ -525,6 +537,7 @@
     .layout-body { margin-left: 240px; }
   }
 
+  .sidebar-menu { }
   .sidebar-section-title {
     font-size: 10px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 2px;
@@ -548,15 +561,16 @@
   .sidebar-btn.active-assessment { background: #faf5ff; color: #7c3aed; }
   .sidebar-btn.active-notes { background: #fffbeb; color: #d97706; }
 
+  /* MAIN CONTENT */
   .content-area {
     flex: 1; overflow-y: auto;
     padding: 24px;
-    padding-top: 88px;
+    padding-top: 88px; /* 64px topbar + 24px jarak */
     padding-bottom: 90px;
   }
   @media (min-width: 900px) {
     .content-area {
-      padding-top: 88px;
+      padding-top: 88px; /* 64px topbar + 24px jarak */
       padding-bottom: 40px;
     }
   }
@@ -614,7 +628,13 @@
     display: flex; align-items: center; justify-content: center;
     box-shadow: none;
   }
+  .school-logo-label {
+    font-size: 9px; color: rgba(255,255,255,0.4);
+    margin-top: 6px; text-align: center;
+    text-transform: uppercase; letter-spacing: 1px; max-width: 80px;
+  }
 
+  /* Quick Stats */
   .quick-stats {
     display: grid; grid-template-columns: repeat(2, 1fr);
     gap: 12px; margin-bottom: 24px;
@@ -650,6 +670,7 @@
     font-size: 12px; color: #9ca3af; margin-top: 2px;
   }
 
+  /* Schedule */
   .section-title {
     font-size: 16px; font-weight: 700; color: #111827;
     margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
@@ -972,6 +993,7 @@
   .server-menu-desc  { font-size: 12px; color: #9ca3af; margin-top: 2px; }
   .server-menu-arrow { color: #d1d5db; font-size: 13px; }
 
+  /* Submodal sheet */
   .sub-overlay {
     position: fixed; inset: 0; z-index: 1100;
     background: rgba(0,0,0,0.55);
@@ -1000,6 +1022,7 @@
   .sub-title  { font-size: 17px; font-weight: 700; color: #111827; }
   .sub-scroll { flex: 1; overflow-y: auto; padding: 0 24px 28px; overscroll-behavior: contain; }
 
+  /* Password form */
   .pw-field { margin-bottom: 14px; }
   .pw-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
   .pw-input {
@@ -1022,6 +1045,7 @@
   .pw-msg.ok  { background: #ecfdf5; color: #059669; }
   .pw-msg.err { background: #fef2f2; color: #dc2626; }
 
+  /* Visi Misi */
   .vm-section { margin-bottom: 20px; }
   .vm-head {
     display: flex; align-items: center; gap: 10px;
@@ -1037,6 +1061,7 @@
   .vm-body ol { padding-left: 18px; margin: 0; }
   .vm-body li { margin-bottom: 6px; }
 
+  /* Medsos */
   .medsos-item {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 0; border-bottom: 1px solid #f3f4f6;
@@ -1051,6 +1076,7 @@
   .medsos-label { font-size: 14px; font-weight: 700; color: #111827; }
   .medsos-handle { font-size: 12px; color: #9ca3af; margin-top: 2px; }
 
+  /* Loading spinner */
   .spinner {
     width: 20px; height: 20px; border-radius: 50%;
     border: 3px solid rgba(255,255,255,0.2);
@@ -1067,6 +1093,12 @@
     box-shadow: 0 2px 12px rgba(0,0,0,0.05);
     animation: fadeSlideUp 0.5s ease 0.15s both;
   }
+  .chart-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; margin-bottom: 20px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .chart-title-block {}
   .chart-title {
     font-size: 16px; font-weight: 700; color: #111827;
     display: flex; align-items: center; gap: 8px;
@@ -1074,6 +1106,109 @@
   .chart-title i { color: #059669; }
   .chart-subtitle { font-size: 12px; color: #9ca3af; margin-top: 3px; }
 
+  .chart-legend {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; color: #6b7280;
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* Chart helper classes */
+  .legend-pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 700;
+  }
+  .lpill-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .yax { font-size: 11px; color: #1e293b; font-weight: 700; line-height: 1; }
+  .gl { position: absolute; left: 0; right: 0; border-top: 0.5px solid #94a3b8; }
+
+
+  .bar-seg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+    min-height: 2px;
+  }
+  .seg-label-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1px; padding: 2px 0;
+    width: 100%; overflow: hidden;
+  }
+  .seg-label-name {
+    font-size: 11px; font-weight: 800;
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    white-space: nowrap; line-height: 1.2;
+    letter-spacing: 0.3px;
+  }
+  .seg-label-count {
+    font-size: 14px; font-weight: 900;
+    color: white;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    line-height: 1.1;
+  }
+
+  .bar-seg-h  { background: linear-gradient(180deg,#34d399,#059669); }
+  .bar-seg-ht { background: linear-gradient(180deg,#c084fc,#7c3aed); }
+  .bar-seg-i  { background: linear-gradient(180deg,#60a5fa,#1d4ed8); }
+  .bar-seg-s  { background: linear-gradient(180deg,#fb923c,#c2410c); }
+  .bar-seg-a  { background: linear-gradient(180deg,#f87171,#b91c1c); }
+  .bar-seg-b  { background: linear-gradient(180deg,#94a3b8,#1e293b); }
+
+  /* Chart scroll container */
+  .chart-scroll {
+    overflow-x: auto; overflow-y: visible;
+    padding-bottom: 4px;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+  }
+  .chart-scroll::-webkit-scrollbar { height: 5px; }
+  .chart-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+  .chart-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .chart-bars-wrap { position: relative; min-width: 100%; }
+
+  /* Bar row */
+  .pct-bar-row {
+    display: flex; align-items: flex-end;
+    gap: 0; height: 420px;
+    padding: 0 8px; position: relative;
+  }
+
+  .bar-col {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    padding: 0 5px; min-width: 80px;
+  }
+
+  .bar-stack {
+    width: 100%; border-radius: 10px 10px 0 0;
+    overflow: hidden; display: flex;
+    flex-direction: column;
+    transition: height 0.6s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    min-height: 4px;
+  }
+
+  /* Y-axis grid */
+  .chart-grid {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 420px; pointer-events: none;
+  }
+  .grid-line {
+    position: absolute; left: 0; right: 0;
+    border-top: 1px dashed #e2e8f0;
+  }
+
+
+  /* Month selector buttons */
   .month-btn-row {
     display: flex; flex-wrap: wrap; gap: 8px;
     margin-bottom: 14px;
@@ -1107,27 +1242,13 @@
   .month-btn-active .mbtn-dot { background: rgba(255,255,255,0.7); }
   .month-btn-no-data { opacity: 0.4; cursor: default; }
 
-  .bar-seg-h  { background: linear-gradient(180deg,#34d399,#059669); }
-  .bar-seg-ht { background: linear-gradient(180deg,#c084fc,#7c3aed); }
-  .bar-seg-i  { background: linear-gradient(180deg,#60a5fa,#1d4ed8); }
-  .bar-seg-s  { background: linear-gradient(180deg,#fb923c,#c2410c); }
-  .bar-seg-a  { background: linear-gradient(180deg,#f87171,#b91c1c); }
-  .bar-seg-b  { background: linear-gradient(180deg,#94a3b8,#1e293b); }
 
-  .chart-scroll {
-    overflow-x: auto; overflow-y: visible;
-    padding-bottom: 4px;
-    user-select: none;
-    -webkit-user-select: none;
-    cursor: default;
+  .bar-month-label {
+    font-size: 11px; font-weight: 600; color: #9ca3af;
+    margin-top: 8px; text-align: center; white-space: nowrap;
+    transition: color 0.2s;
   }
-  .chart-scroll::-webkit-scrollbar { height: 5px; }
-  .chart-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
-  .chart-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
-  .yax { font-size: 11px; color: #1e293b; font-weight: 700; line-height: 1; }
-  .gl { position: absolute; left: 0; right: 0; border-top: 0.5px solid #94a3b8; }
-
+  /* Summary chips below chart */
   .chart-summary {
     display: flex; flex-wrap: wrap; gap: 8px;
     margin-top: 16px; padding-top: 16px;
@@ -1140,103 +1261,142 @@
   }
   .chip-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
 
+
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 6px; }
 
+  /* Utility */
   .animate-delay-1 { animation-delay: 0.05s; }
   .animate-delay-2 { animation-delay: 0.1s; }
   .animate-delay-3 { animation-delay: 0.15s; }
   .animate-delay-4 { animation-delay: 0.2s; }
   .animate-delay-5 { animation-delay: 0.25s; }
 
-  .download-confirm-overlay {
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .download-confirm-overlay .modal-box {
-    border-radius: 24px !important;
-    margin: 20px;
-    max-height: 80vh;
-  }
 
+
+
+
+
+/* ── MODAL KONFIRMASI DOWNLOAD TENGAH LAYAR ── */
+.download-confirm-overlay {
+  align-items: center !important;      /* tengah vertikal */
+  justify-content: center !important; /* tengah horizontal */
+}
+
+/* Pastikan modal-box tetap di tengah dan tidak melebar ke bawah */
+.download-confirm-overlay .modal-box {
+  border-radius: 24px !important;
+  margin: 20px;
+  max-height: 80vh;
+}
+
+
+
+/* Tombol Reset di halaman login */
+.btn-reset-login {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.btn-reset-login:hover {
+  background: rgba(239, 71, 111, 0.25);
+  border-color: rgba(239, 71, 111, 0.5);
+  color: #ff8fab;
+  transform: rotate(60deg);
+}
+@media (max-width: 480px) {
   .btn-reset-login {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 20;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
-  .btn-reset-login:hover {
-    background: rgba(239, 71, 111, 0.25);
-    border-color: rgba(239, 71, 111, 0.5);
-    color: #ff8fab;
-    transform: rotate(60deg);
-  }
-  @media (max-width: 480px) {
-    .btn-reset-login {
-      top: 12px;
-      right: 12px;
-      width: 36px;
-      height: 36px;
-      font-size: 16px;
-    }
-  }
+}
 
-  .reset-confirm-overlay {
-    justify-content: center;
-    align-items: center;
-  }
-  .reset-confirm-overlay .modal-box {
-    border-radius: 24px;
-    margin: 20px;
-  }
+
+/* Overlay khusus reset agar posisinya di tengah */
+.reset-confirm-overlay {
+  justify-content: center;
+  align-items: center;
+}
+.reset-confirm-overlay .modal-box {
+  border-radius: 24px;
+  margin: 20px;
+}
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
-
+  
 <div id="app">
 
-  <!-- LOGIN PAGE -->
+  <!-- ════════════════════════════════════
+       LOGIN PAGE
+  ════════════════════════════════════ -->
   <div v-if="!loggedIn" class="login-page">
+<!-- Tombol Reset (pojok kanan atas) -->
+<button class="btn-reset-login" @click="showResetConfirm = true" title="Reset semua data">
+  <i class="fas fa-undo-alt"></i>
+</button>
 
-    <button class="btn-reset-login" @click="showResetConfirm = true" title="Reset semua data">
-      <i class="fas fa-undo-alt"></i>
-    </button>
 
-    <!-- Modal Konfirmasi Reset -->
-    <div v-if="showResetConfirm" class="modal-overlay reset-confirm-overlay" @click.self="showResetConfirm = false">
-      <div class="modal-box" style="max-width: 360px; text-align: center; padding: 32px 24px;">
-        <div style="font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;">
-          <i class="fas fa-exclamation-triangle" style="color: #ef4444; margin-right: 8px;"></i> Reset Semua Data
-        </div>
-        <p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;">
-          Apakah Anda yakin ingin menghapus NISN, password, dan semua data yang tersimpan?
-        </p>
-        <div style="display: flex; gap: 12px; justify-content: center;">
-          <button @click="showResetConfirm = false"
-                  style="padding: 10px 24px; border-radius: 12px; border: 1px solid #e5e7eb; background: white; color: #374151; font-weight: 600; cursor: pointer;">
-            Batal
-          </button>
-          <button @click="resetAllData(); showResetConfirm = false;"
-                  style="padding: 10px 24px; border-radius: 12px; border: none; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">
-            Ya, Hapus Semua
-          </button>
-        </div>
-      </div>
+<!-- Modal Konfirmasi Reset -->
+<div v-if="showResetConfirm" class="modal-overlay reset-confirm-overlay" @click.self="showResetConfirm = false">
+  <div class="modal-box" style="max-width: 360px; text-align: center; padding: 32px 24px;">
+    <div style="font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;">
+      <i class="fas fa-exclamation-triangle" style="color: #ef4444; margin-right: 8px;"></i> Reset Semua Data
     </div>
+    <p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;">
+      Apakah Anda yakin ingin menghapus NISN, password, dan semua data yang tersimpan?
+    </p>
+    <div style="display: flex; gap: 12px; justify-content: center;">
+      <button @click="showResetConfirm = false"
+              style="padding: 10px 24px; border-radius: 12px; border: 1px solid #e5e7eb; background: white; color: #374151; font-weight: 600; cursor: pointer;">
+        Batal
+      </button>
+      <button @click="resetAllData(); showResetConfirm = false;"
+              style="padding: 10px 24px; border-radius: 12px; border: none; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">
+        Ya, Hapus Semua
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Background -->
     <div class="login-bg">
@@ -1291,8 +1451,11 @@
     <!-- Login Card -->
     <div class="login-wrapper">
       <div class="login-card">
+
+        <!-- Background foto mobile -->
         <div class="login-card-bg" :style="bgImageSrc ? { backgroundImage: 'url(' + bgImageSrc + ')' } : {}"></div>
 
+        <!-- Logo -->
         <div class="card-logo">
           <div class="card-logo-icon">
             <img :src="logoSrc" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">
@@ -1306,50 +1469,80 @@
         <div class="card-title">Selamat Datang 👋</div>
         <div class="card-subtitle">Masuk menggunakan NISN dan Password kamu</div>
 
+        <!-- Error -->
         <div v-if="errorMessage" class="error-box">
           <i class="fas fa-exclamation-circle"></i>
           {{ errorMessage }}
         </div>
 
+        <!-- Fields -->
+        <!-- Form tersembunyi agar browser mengenali sebagai login form -->
         <form id="loginForm" method="post" action="#" @submit.prevent style="display:contents">
-          <div class="field-group">
-            <label class="field-label">NISN</label>
-            <div class="field-wrap">
-              <i class="fas fa-id-card field-icon"></i>
-              <input class="field-input" id="username" name="username" type="text"
-                autocomplete="off" placeholder="Masukkan NISN kamu..."
-                v-model="nisnInput" @keyup.enter="login" />
-            </div>
-          </div>
 
-          <div class="field-group">
-            <label class="field-label">Password</label>
-            <div class="field-wrap">
-              <i class="fas fa-lock field-icon"></i>
-              <input class="field-input" id="password" name="password" type="password"
-                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                placeholder="Masukkan password kamu..."
-                v-model="passwordInput" @keyup.enter="login"
-                @copy.prevent @cut.prevent @contextmenu.prevent />
-            </div>
+        <div class="field-group">
+          <label class="field-label">NISN</label>
+          <div class="field-wrap">
+            <i class="fas fa-id-card field-icon"></i>
+            <input
+              class="field-input"
+              id="username"
+              name="username"
+              type="text"
+              autocomplete="off"
+              placeholder="Masukkan NISN kamu..."
+              v-model="nisnInput"
+              @keyup.enter="login"
+            />
           </div>
+        </div>
 
-          <div class="field-group" v-if="showGenapOption">
-            <label class="field-label">Semester</label>
-            <div class="field-wrap">
-              <i class="fas fa-calendar-alt field-icon"></i>
-              <select class="field-select" v-model="selectedSemester">
-                <option value="GANJIL">Semester Ganjil</option>
-                <option value="GENAP">Semester Genap</option>
-              </select>
-              <i class="fas fa-chevron-down field-select-arrow"></i>
-            </div>
+        <div class="field-group">
+          <label class="field-label">Password</label>
+          <div class="field-wrap">
+            <i class="fas fa-lock field-icon"></i>
+            <input
+              class="field-input"
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              placeholder="Masukkan password kamu..."
+              v-model="passwordInput"
+              @keyup.enter="login"
+              @copy.prevent
+              @cut.prevent
+              @contextmenu.prevent
+            />
           </div>
+        </div>
 
-          <button class="btn-login" type="submit" @click.prevent="login" :disabled="loading">
-            <span v-if="loading"><span class="spinner"></span>Memverifikasi...</span>
-            <span v-else><i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Masuk Sekarang</span>
-          </button>
+
+
+<!-- Dropdown Semester (hanya muncul jika ada pilihan Genap) -->
+<div class="field-group" v-if="showGenapOption">
+  <label class="field-label">Semester</label>
+  <div class="field-wrap">
+    <i class="fas fa-calendar-alt field-icon"></i>
+    <select class="field-select" v-model="selectedSemester">
+      <option value="GANJIL">Semester Ganjil</option>
+      <option value="GENAP">Semester Genap</option>
+    </select>
+    <i class="fas fa-chevron-down field-select-arrow"></i>
+  </div>
+</div>
+<!-- Jika bulan Juli-Desember (hanya ganjil), tidak muncul dropdown, selectedSemester tetap 'GANJIL' -->
+
+
+
+
+        <button class="btn-login" type="submit" @click.prevent="login" :disabled="loading">
+          <span v-if="loading"><span class="spinner"></span>Memverifikasi...</span>
+          <span v-else><i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Masuk Sekarang</span>
+        </button>
+
         </form>
 
         <div class="login-footer">
@@ -1360,29 +1553,34 @@
     </div>
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- ════════════════════════════════════
+       DASHBOARD
+  ════════════════════════════════════ -->
   <div v-if="loggedIn" class="dashboard">
-
-    <div v-if="showDownloadConfirm" class="modal-overlay download-confirm-overlay" @click.self="showDownloadConfirm = false">
-      <div class="modal-box" style="max-width:360px; text-align:center; padding:32px 24px;">
-        <div style="font-size:16px; font-weight:700; color:#111827; margin-bottom:8px;">
-          <i class="fas fa-file-pdf" style="color:#dc2626; margin-right:8px;"></i> Download Data
-        </div>
-        <p style="font-size:14px; color:#6b7280; margin-bottom:24px;">
-          Apakah Anda yakin ingin mendownload data?
-        </p>
-        <div style="display:flex; gap:12px; justify-content:center;">
-          <button @click="showDownloadConfirm = false"
-                  style="padding:10px 24px; border-radius:12px; border:1px solid #e5e7eb; background:white; color:#374151; font-weight:600; cursor:pointer;">
-            Batal
-          </button>
-          <button @click="showDownloadConfirm = false; downloadPdf()"
-                  style="padding:10px 24px; border-radius:12px; border:none; background:linear-gradient(135deg,#00b4d8,#0077b6); color:white; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,180,216,0.3);">
-            Ya, Download
-          </button>
-        </div>
-      </div>
+<!-- Konfirmasi Download PDF -->
+<div v-if="showDownloadConfirm" class="modal-overlay download-confirm-overlay" @click.self="showDownloadConfirm = false">
+  <div class="modal-box" style="max-width:360px; text-align:center; padding:32px 24px;">
+    <div style="font-size:16px; font-weight:700; color:#111827; margin-bottom:8px;">
+      <i class="fas fa-file-pdf" style="color:#dc2626; margin-right:8px;"></i> Download Data
     </div>
+    <p style="font-size:14px; color:#6b7280; margin-bottom:24px;">
+      Apakah Anda yakin ingin mendownload data?
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <button @click="showDownloadConfirm = false"
+              style="padding:10px 24px; border-radius:12px; border:1px solid #e5e7eb; background:white; color:#374151; font-weight:600; cursor:pointer;">
+        Batal
+      </button>
+      <button @click="showDownloadConfirm = false; downloadPdf()"
+              style="padding:10px 24px; border-radius:12px; border:none; background:linear-gradient(135deg,#00b4d8,#0077b6); color:white; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,180,216,0.3);">
+        Ya, Download
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
 
     <!-- TOP BAR -->
     <nav class="topbar">
@@ -1407,11 +1605,14 @@
       </div>
     </nav>
 
-    <!-- BOTTOM TAB (mobile) -->
+    <!-- BOTTOM TAB (mobile) — sticky tepat di bawah topbar -->
     <nav class="bottom-tab">
-      <button v-for="tab in tabs" :key="tab.id" class="tab-btn"
+      <button
+        v-for="tab in tabs" :key="tab.id"
+        class="tab-btn"
         :class="currentTab === tab.id ? 'active-' + tab.id : ''"
-        @click="switchTab(tab.id)">
+        @click="switchTab(tab.id)"
+      >
         <i :class="tab.icon"></i>
         {{ tab.name }}
       </button>
@@ -1422,9 +1623,12 @@
       <!-- SIDEBAR (desktop) -->
       <aside class="sidebar">
         <div class="sidebar-section-title">Navigasi</div>
-        <button v-for="tab in tabs" :key="tab.id" class="sidebar-btn"
+        <button
+          v-for="tab in tabs" :key="tab.id"
+          class="sidebar-btn"
           :class="currentTab === tab.id ? 'active-' + tab.id : ''"
-          @click="switchTab(tab.id)">
+          @click="switchTab(tab.id)"
+        >
           <i :class="tab.icon"></i>
           {{ tab.name }}
         </button>
@@ -1450,8 +1654,10 @@
       <!-- CONTENT AREA -->
       <main class="content-area" id="contentArea">
 
-        <!-- HOME -->
+        <!-- ── HOME ── -->
         <div v-if="currentTab === 'home'">
+
+          <!-- Welcome Banner -->
           <div class="welcome-banner">
             <div class="wb-top">
               <div class="wb-greeting">Selamat Datang</div>
@@ -1461,12 +1667,13 @@
                 {{ studentData.kelas }} — {{ studentData.nisn }}
               </div>
               <div style="margin-top: 8px; font-size: 12px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px;">
-                <i class="fas fa-calendar-alt" style="font-size:11px"></i>
-                Semester {{ selectedSemester === 'GANJIL' ? 'Ganjil' : 'Genap' }}
-              </div>
+  <i class="fas fa-calendar-alt" style="font-size:11px"></i>
+  Semester {{ selectedSemester === 'GANJIL' ? 'Ganjil' : 'Genap' }}
+</div>
             </div>
           </div>
 
+          <!-- Quick Stats -->
           <div class="quick-stats">
             <div class="qs-card">
               <div class="qs-icon blue"><i class="fas fa-calendar-check"></i></div>
@@ -1490,6 +1697,7 @@
             </div>
           </div>
 
+          <!-- Schedule (NAIK KE ATAS) -->
           <div class="section-title">
             <i class="fas fa-calendar-day"></i> Jadwal Pelajaran Hari Ini
           </div>
@@ -1500,13 +1708,15 @@
           </div>
 
           <div class="schedule-list" v-else>
-            <div v-for="(item, idx) in parsedSchedule" :key="idx"
+            <div
+              v-for="(item, idx) in parsedSchedule" :key="idx"
               class="schedule-card"
               :class="'animate-delay-' + Math.min(idx+1,5)"
               :style="{
                 borderLeftColor: item.statusRaw === 'H' ? '#10b981' : item.statusRaw === 'HT' ? '#8b5cf6' : item.statusRaw === 'I' ? '#3b82f6' : item.statusRaw === 'S' ? '#f97316' : item.statusRaw === 'A' ? '#ef4444' : item.statusRaw === 'B' ? '#111827' : '#9ca3af',
                 background: 'white'
-              }">
+              }"
+            >
               <div class="sched-icon" :style="{
                 background: item.statusRaw === 'H' ? '#ecfdf5' : item.statusRaw === 'HT' ? '#f5f3ff' : item.statusRaw === 'I' ? '#eff6ff' : item.statusRaw === 'S' ? '#fff7ed' : item.statusRaw === 'A' ? '#fef2f2' : '#f9fafb',
                 color: item.statusRaw === 'H' ? '#059669' : item.statusRaw === 'HT' ? '#7c3aed' : item.statusRaw === 'I' ? '#2563eb' : item.statusRaw === 'S' ? '#ea580c' : item.statusRaw === 'A' ? '#dc2626' : '#374151'
@@ -1524,13 +1734,15 @@
             </div>
           </div>
 
-          <!-- ATTENDANCE CHART -->
+          <!-- ── ATTENDANCE CHART (TURUN KE BAWAH) ── -->
           <div class="chart-card" style="margin-top:24px">
+            <!-- Header -->
             <div style="margin-bottom:16px">
               <div class="chart-title"><i class="fas fa-chart-bar"></i> Grafik Kehadiran Bulanan</div>
               <div class="chart-subtitle">Arahkan pointer ke batang untuk melihat keterangan</div>
             </div>
 
+            <!-- Month Buttons -->
             <div class="month-btn-row">
               <button v-for="mb in monthButtons" :key="mb.num" class="month-btn"
                 :class="{ 'month-btn-active': selectedChartMonth === mb.num, 'month-btn-no-data': !availableMonths.includes(mb.num) }"
@@ -1540,6 +1752,7 @@
               </button>
             </div>
 
+            <!-- Persentase Bulanan -->
             <div v-if="monthlyAttendanceStats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
               <div style="flex:1;min-width:100px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:4px">
                 <div style="font-size:11px;color:#16a34a;font-weight:700;text-transform:uppercase;letter-spacing:0.8px">Hadir</div>
@@ -1563,12 +1776,15 @@
               </div>
             </div>
 
+            <!-- Empty -->
             <div v-if="dailyChartData.length === 0" class="empty-state" style="border:none;background:#f8fafc;padding:40px">
               <i class="fas fa-calendar-times" style="font-size:36px;opacity:0.2;display:block;margin-bottom:12px"></i>
               <p style="font-size:14px">Tidak ada data kehadiran di bulan ini</p>
             </div>
 
             <div v-else style="position:relative">
+
+              <!-- ── TOOLTIP POJOK KANAN ATAS ── -->
               <transition name="bar-tip">
                 <div v-if="hoveredBar" style="position:absolute;top:0;right:0;z-index:20;min-width:200px;max-width:240px;background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:14px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);user-select:none;pointer-events:none">
                   <div style="font-size:13px;font-weight:800;color:#94a3b8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">
@@ -1577,27 +1793,39 @@
                   </div>
                   <div style="display:flex;flex-direction:column;gap:7px">
                     <div v-if="hoveredBar.h>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#d1fae5;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#16a34a;flex-shrink:0;display:inline-block"></span>Hadir</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#d1fae5;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#16a34a;flex-shrink:0;display:inline-block"></span>Hadir
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#4ade80">{{ hoveredBar.h }}</span>
                     </div>
                     <div v-if="hoveredBar.ht>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#ede9fe;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#7c3aed;flex-shrink:0;display:inline-block"></span>Terlambat</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#ede9fe;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#7c3aed;flex-shrink:0;display:inline-block"></span>Terlambat
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#c084fc">{{ hoveredBar.ht }}</span>
                     </div>
                     <div v-if="hoveredBar.i>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#dbeafe;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#2563eb;flex-shrink:0;display:inline-block"></span>Izin</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#dbeafe;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#2563eb;flex-shrink:0;display:inline-block"></span>Izin
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#60a5fa">{{ hoveredBar.i }}</span>
                     </div>
                     <div v-if="hoveredBar.s>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#ffedd5;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#ea580c;flex-shrink:0;display:inline-block"></span>Sakit</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#ffedd5;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#ea580c;flex-shrink:0;display:inline-block"></span>Sakit
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#fb923c">{{ hoveredBar.s }}</span>
                     </div>
                     <div v-if="hoveredBar.a>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#fee2e2;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#dc2626;flex-shrink:0;display:inline-block"></span>Alpa</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#fee2e2;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#dc2626;flex-shrink:0;display:inline-block"></span>Alpa
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#f87171">{{ hoveredBar.a }}</span>
                     </div>
                     <div v-if="hoveredBar.b>0" style="display:flex;justify-content:space-between;align-items:center">
-                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#e2e8f0;font-weight:600"><span style="width:10px;height:10px;border-radius:3px;background:#475569;flex-shrink:0;display:inline-block"></span>Bolos</span>
+                      <span style="display:flex;align-items:center;gap:7px;font-size:13px;color:#e2e8f0;font-weight:600">
+                        <span style="width:10px;height:10px;border-radius:3px;background:#475569;flex-shrink:0;display:inline-block"></span>Bolos
+                      </span>
                       <span style="font-size:15px;font-weight:900;color:#94a3b8">{{ hoveredBar.b }}</span>
                     </div>
                     <div style="margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center">
@@ -1609,12 +1837,17 @@
               </transition>
 
               <div style="display:flex;align-items:stretch">
+
+                <!-- Y axis: integer per mata pelajaran -->
                 <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:10px;height:440px;flex-shrink:0;padding-top:0;padding-bottom:30px">
                   <span v-for="tick in yAxisTicks" :key="tick" class="yax">{{ tick }}</span>
                 </div>
 
+                <!-- Scrollable bars -->
                 <div class="chart-scroll" style="flex:1">
                   <div :style="{ width: Math.max(100, dailyChartData.length * 100) + 'px', minWidth:'100%', position:'relative' }">
+
+                    <!-- Grid lines (satu per mata pelajaran) -->
                     <div style="position:absolute;top:0;left:0;right:0;height:410px;pointer-events:none">
                       <div v-for="tick in yAxisTicks" :key="tick" class="gl"
                         :style="{ top: ((dailyChartMaxTotal - tick) / dailyChartMaxTotal * 100) + '%',
@@ -1622,12 +1855,15 @@
                       </div>
                     </div>
 
+                    <!-- Bar columns -->
                     <div style="display:flex;align-items:flex-end;height:410px;padding:0 6px;position:relative">
                       <div v-for="d in dailyChartData" :key="d.dateKey"
                         style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 5px;min-width:90px;cursor:pointer"
                         @mouseenter="hoveredBar = d"
                         @mouseleave="hoveredBar = null"
                         @click="hoveredBar = (hoveredBar && hoveredBar.dateKey === d.dateKey) ? null : d">
+
+                        <!-- Stacked bar — NO text inside -->
                         <div style="width:100%;border-radius:10px 10px 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 16px rgba(0,0,0,0.12);transition:all 0.35s cubic-bezier(.4,0,.2,1)"
                           :style="{
                             height: dailyChartMaxTotal > 0 ? Math.max(8, (d.total/dailyChartMaxTotal)*390) + 'px' : '8px',
@@ -1641,19 +1877,24 @@
                           <div v-if="d.ht>0" :style="{ flex:d.ht, background:'linear-gradient(180deg,#c084fc,#6d28d9)', minHeight:'4px' }"></div>
                           <div v-if="d.h>0" :style="{ flex:d.h, background:'linear-gradient(180deg,#4ade80,#059669)', minHeight:'4px' }"></div>
                         </div>
+
+                        <!-- Tanggal -->
                         <div style="margin-top:8px;font-size:13px;font-weight:800;color:#1e293b;text-align:center;white-space:nowrap;user-select:none">
                           {{ d.dateKey }}
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
 
+              <!-- X label -->
               <div style="text-align:center;margin-top:10px;font-size:12px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;font-weight:700">
                 Tanggal · {{ selectedMonthLabel }}
               </div>
 
+              <!-- Summary chips -->
               <div class="chart-summary">
                 <div class="chart-chip" style="background:#dcfce7;color:#166534">
                   <div class="chip-dot" style="background:#16a34a"></div>
@@ -1676,7 +1917,6 @@
           </div>
         </div>
 
-        <!-- ATTENDANCE -->
         <div v-if="currentTab === 'attendance'">
           <div class="page-header">
             <div>
@@ -1709,10 +1949,12 @@
           </div>
 
           <div class="attendance-grid" v-else>
-            <div v-for="(item, idx) in parsedAttendance" :key="idx"
+            <div
+              v-for="(item, idx) in parsedAttendance" :key="idx"
               class="att-card"
               :class="'animate-delay-' + Math.min(idx+1,5)"
-              @click="openAttendanceDetail(idx)">
+              @click="openAttendanceDetail(idx)"
+            >
               <div class="att-card-top">
                 <div class="att-card-icon" :style="{
                   background: item.percentage > 79 ? '#ecfdf5' : item.percentage >= 75 ? '#fffbeb' : item.percentage > 0 ? '#fef2f2' : '#f3f4f6',
@@ -1756,7 +1998,7 @@
           </div>
         </div>
 
-        <!-- ASSESSMENT -->
+        <!-- ── ASSESSMENT ── -->
         <div v-if="currentTab === 'assessment'">
           <div class="page-header">
             <div>
@@ -1768,6 +2010,7 @@
             </div>
           </div>
 
+          <!-- Summary bar -->
           <div v-if="parsedAssessment.length > 0" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:18px;padding:20px;border:1px solid #6d28d9;margin-bottom:20px;display:flex;gap:20px;flex-wrap:wrap;animation:fadeSlideUp 0.4s ease 0.1s both">
             <div style="flex:1;min-width:120px">
               <div style="font-size:12px;color:#ddd6fe;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600">Mapel Selesai</div>
@@ -1789,10 +2032,12 @@
           </div>
 
           <div class="assessment-grid" v-else>
-            <div v-for="(item, idx) in parsedAssessment" :key="idx"
+            <div
+              v-for="(item, idx) in parsedAssessment" :key="idx"
               class="asmnt-card"
               :class="'animate-delay-' + Math.min(idx+1,5)"
-              @click="openAssessmentDetail(idx)">
+              @click="openAssessmentDetail(idx)"
+            >
               <div class="asmnt-card-top">
                 <div class="asmnt-icon" :style="{
                   background: item.remaining === 0 ? '#faf5ff' : '#fff7ed',
@@ -1829,7 +2074,7 @@
           </div>
         </div>
 
-        <!-- NOTES -->
+        <!-- ── NOTES ── -->
         <div v-if="currentTab === 'notes'">
           <div class="page-header">
             <div>
@@ -1847,10 +2092,12 @@
           </div>
 
           <div class="notes-grid" v-else>
-            <div v-for="(note, idx) in parsedNotes" :key="idx"
+            <div
+              v-for="(note, idx) in parsedNotes" :key="idx"
               class="note-card"
               :class="'animate-delay-' + Math.min(idx+1,5)"
-              :style="{ borderTopColor: note.border, boxShadow: '0 4px 18px ' + note.shadow }">
+              :style="{ borderTopColor: note.border, boxShadow: '0 4px 18px ' + note.shadow }"
+            >
               <div class="note-header">
                 <div class="note-icon" :style="{ background: note.bg, color: note.color }">
                   <i class="fas fa-sticky-note"></i>
@@ -1871,8 +2118,19 @@
           </div>
         </div>
 
-        <!-- SERVER -->
+        <!-- ── SERVER ── -->
         <div v-if="currentTab === 'server'" class="server-panel">
+
+
+
+<div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb">
+  <div style="font-size:11px;color:#9ca3af">Sesi Berakhir</div>
+  <div style="font-size:13px;font-weight:600;color:#374151">
+    {{ sessionExpiryTime ? sessionExpiryTime.toLocaleTimeString('id-ID') : '—' }}
+  </div>
+</div>
+
+
           <div class="server-section-title">Akun</div>
           <div class="server-menu-card">
             <button class="server-menu-item" @click="openSub('password')">
@@ -1887,7 +2145,7 @@
 
           <div class="server-section-title">Data</div>
           <div class="server-menu-card">
-            <button class="server-menu-item" @click="showDownloadConfirm = true">
+           <button class="server-menu-item" @click="showDownloadConfirm = true">
               <div class="server-menu-icon" style="background:#fef2f2;color:#dc2626"><i class="fas fa-file-pdf"></i></div>
               <div class="server-menu-text">
                 <div class="server-menu-label">Download Data</div>
@@ -1929,7 +2187,7 @@
       </main>
     </div>
 
-    <!-- SERVER SUBMODALS -->
+    <!-- ── SERVER SUBMODALS ── -->
     <div v-if="activeSub" class="sub-overlay" @click.self="closeSub">
       <div class="sub-box">
 
@@ -2092,9 +2350,11 @@
       </div>
     </div>
 
-    <!-- ATTENDANCE MODAL -->
+    <!-- ── ATTENDANCE MODAL ── -->
     <div v-if="showAttendanceModal && selectedAttendance" class="modal-overlay" @click.self="closeModal">
       <div class="modal-box">
+
+        <!-- STATIC: header + summary chips (tidak scroll) -->
         <div class="modal-static">
           <div class="modal-header">
             <div>
@@ -2103,6 +2363,8 @@
             </div>
             <button class="modal-close" @click="closeModal"><i class="fas fa-times"></i></button>
           </div>
+
+          <!-- Summary chips -->
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
             <span v-if="selectedAttendance.h > 0" style="padding:6px 14px;border-radius:10px;background:#ecfdf5;color:#059669;font-size:12px;font-weight:700">H: {{ selectedAttendance.h }}</span>
             <span v-if="selectedAttendance.ht > 0" style="padding:6px 14px;border-radius:10px;background:#f5f3ff;color:#7c3aed;font-size:12px;font-weight:700">HT: {{ selectedAttendance.ht }}</span>
@@ -2113,6 +2375,8 @@
           </div>
           <div style="border-top:2px solid #f3f4f6;margin-bottom:0"></div>
         </div>
+
+        <!-- SCROLLABLE: daftar detail pertemuan -->
         <div class="modal-scroll">
           <div v-if="attendanceDetailParsed.length === 0" style="text-align:center;color:#9ca3af;padding:24px">
             <i class="fas fa-calendar" style="font-size:24px;margin-bottom:8px;opacity:0.3;display:block"></i>
@@ -2128,12 +2392,15 @@
             </span>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- ASSESSMENT MODAL -->
+    <!-- ── ASSESSMENT MODAL ── -->
     <div v-if="showAssessmentModal && selectedAssessment" class="modal-overlay" @click.self="closeModal">
       <div class="modal-box">
+
+        <!-- STATIC: header + info card (tidak scroll) -->
         <div class="modal-static">
           <div class="modal-header">
             <div>
@@ -2142,6 +2409,7 @@
             </div>
             <button class="modal-close" @click="closeModal"><i class="fas fa-times"></i></button>
           </div>
+
           <div style="background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:14px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
             <div style="width:48px;height:48px;border-radius:14px;background:#7c3aed;color:white;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:700">
               {{ selectedAssessment.remaining }}
@@ -2153,6 +2421,8 @@
           </div>
           <div style="border-top:2px solid #f3f4f6;margin-bottom:0"></div>
         </div>
+
+        <!-- SCROLLABLE: daftar detail nilai -->
         <div class="modal-scroll">
           <div v-if="assessmentDetailParsed.length === 0" style="text-align:center;color:#9ca3af;padding:24px">
             <i class="fas fa-star" style="font-size:24px;margin-bottom:8px;opacity:0.3;display:block"></i>
@@ -2171,6 +2441,7 @@
             </span>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -2184,6 +2455,7 @@ const { createApp, ref, computed, watch } = Vue;
 const LOGO_URL     = 'https://www.sman5pinrang.web.id/logo.png';
 const LOGO_CACHE_KEY = 'sp5p_logo_b64';
 
+// Ambil logo dari cache atau fetch dari network, simpan sebagai base64
 async function loadLogo() {
   const cached = localStorage.getItem(LOGO_CACHE_KEY);
   if (cached) return cached;
@@ -2202,10 +2474,11 @@ async function loadLogo() {
       reader.readAsDataURL(blob);
     });
   } catch {
-    return cached || LOGO_URL;
+    return cached || LOGO_URL; // fallback
   }
 }
 
+// ── Background image cache — pakai IndexedDB agar aman untuk file besar ──
 const BG_IMAGE_URL = 'https://www.sman5pinrang.web.id/image1.jpg';
 const BG_IDB_DB    = 'sp5p_cache';
 const BG_IDB_STORE = 'images';
@@ -2247,6 +2520,7 @@ function _idbSet(key, value) {
   });
 }
 
+// Ambil bg image dari IndexedDB; jika belum ada, fetch dari network lalu simpan
 async function loadBgImage() {
   const cached = await _idbGet(BG_IDB_KEY);
   if (cached) return cached;
@@ -2265,41 +2539,78 @@ async function loadBgImage() {
       reader.readAsDataURL(blob);
     });
   } catch {
-    return BG_IMAGE_URL;
+    return BG_IMAGE_URL; // fallback
   }
 }
 
 createApp({
   setup() {
     const logoSrc = ref(localStorage.getItem(LOGO_CACHE_KEY) || LOGO_URL);
+
+    // Perbarui cache di background saat online
     loadLogo().then(src => { logoSrc.value = src; });
 
+    // Background image — cache IndexedDB, sekali unduh untuk selamanya
     const bgImageSrc = ref('');
     _idbGet(BG_IDB_KEY).then(cached => {
       if (cached) { bgImageSrc.value = cached; }
       else { loadBgImage().then(src => { bgImageSrc.value = src; }); }
     });
-
-    const loggedIn      = ref(false);
-    const loading       = ref(false);
-    const nisnInput     = ref('');
+    const loggedIn = ref(false);
+    const loading = ref(false);
+    const nisnInput = ref('');
     const passwordInput = ref('');
-    const errorMessage  = ref('');
-
-    const currentMonth = new Date().getMonth() + 1;
-    const defaultSemester = (currentMonth >= 1 && currentMonth <= 6) ? 'GENAP' : 'GANJIL';
-    const selectedSemester  = ref(defaultSemester);
-    const showGenapOption   = computed(() => currentMonth >= 1 && currentMonth <= 6);
-
+    const errorMessage = ref('');
+// Tentukan default berdasarkan bulan sekarang
+const currentMonth = new Date().getMonth() + 1; // 1-12
+const defaultSemester = (currentMonth >= 1 && currentMonth <= 6) ? 'GENAP' : 'GANJIL';
+const selectedSemester = ref(defaultSemester);
+const showGenapOption = computed(() => currentMonth >= 1 && currentMonth <= 6);
+    // ── Penyimpanan internal: hanya NISN dan Kelas, password TIDAK disimpan ──
     const STORE_KEY = 'sp5p_session';
+const _SK = STORE_KEY; // <-- Baris ini penting!
 
-    const showDownloadConfirm = ref(false);
-    const showResetConfirm    = ref(false);
 
-    // ── Enkripsi AES-GCM ──
+
+
+const sessionExpiryTime = ref(null); // menyimpan Date object
+const now = new Date();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const showDownloadConfirm = ref(false);
+
+    // ── Enkripsi AES-GCM — kunci diturunkan dari seed + fingerprint perangkat ──
+    // Data di localStorage tidak bisa dibaca di perangkat/browser lain
+    // karena kunci enkripsinya unik per perangkat.
     const _ENC_SEED = 'sp5p@sman5pinrang!#2025$secure';
 
     const _deviceFingerprint = () => {
+      // Gabungkan beberapa properti perangkat yang stabil sebagai fingerprint
       const parts = [
         navigator.userAgent       || '',
         navigator.language        || '',
@@ -2313,11 +2624,13 @@ createApp({
     };
 
     const _getKey = async () => {
-      const enc  = new TextEncoder();
-      const seed = _ENC_SEED + '::' + _deviceFingerprint();
-      const raw  = enc.encode(seed);
-      const hash = await crypto.subtle.digest('SHA-256', raw);
-      return crypto.subtle.importKey('raw', hash, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt']);
+      const enc      = new TextEncoder();
+      const seed     = _ENC_SEED + '::' + _deviceFingerprint();
+      const raw      = enc.encode(seed);
+      const hash     = await crypto.subtle.digest('SHA-256', raw);
+      return crypto.subtle.importKey(
+        'raw', hash, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt']
+      );
     };
 
     const _encrypt = async (plainText) => {
@@ -2328,6 +2641,7 @@ createApp({
       const combined = new Uint8Array(12 + ct.byteLength);
       combined.set(iv, 0);
       combined.set(new Uint8Array(ct), 12);
+      // Encode ke base64 lalu obfuscate nama key agar tidak mudah dikenali
       return btoa(String.fromCharCode(...combined));
     };
 
@@ -2340,27 +2654,68 @@ createApp({
       return new TextDecoder().decode(pt);
     };
 
+  
+
     const loadSaved = async () => {
       try {
-        const raw = sessionStorage.getItem(STORE_KEY) || localStorage.getItem(STORE_KEY);
+        const raw = sessionStorage.getItem(_SK) || localStorage.getItem(_SK);
         if (!raw) return null;
         const plain = await _decrypt(raw);
         return JSON.parse(plain);
       } catch { return null; }
     };
 
-    const saveSession = async (nisn, kelas, password) => {
-      try {
-        const plain = JSON.stringify({ nisn, kelas, password });
-        const enc   = await _encrypt(plain);
-        localStorage.removeItem(STORE_KEY);
-        sessionStorage.removeItem(STORE_KEY);
-        sessionStorage.setItem(STORE_KEY, enc);
-        localStorage.setItem(STORE_KEY, enc);
-      } catch {}
-    };
 
-    // Auto-fill dari penyimpanan internal
+
+
+
+
+
+
+
+
+
+
+
+
+const showResetConfirm = ref(false);
+
+const resetAllData = () => {
+  try {
+    // 1. Hapus kunci penyimpanan kredensial (NISN & password terenkripsi)
+    localStorage.removeItem(STORE_KEY);
+    sessionStorage.removeItem(STORE_KEY);
+
+    // 2. Hapus cache data siswa (15 menit)
+
+    // 3. Tandai bahwa logout / reset terjadi, agar cache tidak dipulihkan saat reload nanti
+    sessionStorage.setItem('sp5p_logged_out', '1');
+
+    // 4. Reset seluruh state reaktif agar tampilan login bersih
+    nisnInput.value = '';
+    passwordInput.value = '';
+    loggedIn.value = false;
+    studentData.value = {
+      nisn: '', nama: '', kelas: '',
+      nilaiAmbang: '', kehadiranAmbang: '',
+      rawSchedule: '', rawAttendanceData: '',
+      rawAssessmentData: '', rawNotesData: '',
+      abList: [], nlList: []
+    };
+    errorMessage.value = '';
+    selectedSemester.value = defaultSemester; // defaultSemester sudah terdefinisi di setup
+    showResetConfirm.value = false; // tutup modal konfirmasi
+
+    // 5. Hentikan timer sesi yang mungkin masih berjalan
+  } catch (e) {
+    // Jika terjadi error, lakukan reload halaman sebagai fallback
+    window.location.reload();
+  }
+};
+
+    // Auto-fill NISN & password dari session terenkripsi
+    // Login tidak dipulihkan otomatis — siswa harus login ulang
+    // agar data selalu diambil fresh dari datasiswa.js
     loadSaved().then(saved => {
       if (saved) {
         nisnInput.value     = saved.nisn     || '';
@@ -2368,9 +2723,29 @@ createApp({
       }
     });
 
+    const saveSession = async (nisn, kelas, password) => {
+      try {
+        const plain = JSON.stringify({ nisn, kelas, password });
+        const enc   = await _encrypt(plain);
+        // Hapus key lama jika ada
+        localStorage.removeItem(STORE_KEY);
+        sessionStorage.removeItem(STORE_KEY);
+        sessionStorage.setItem(_SK, enc);
+        localStorage.setItem(_SK, enc);
+      } catch {}
+    };
+
+    // Auto-fill dari penyimpanan internal (terenkripsi)
+    loadSaved().then(saved => {
+      if (saved) {
+        nisnInput.value     = saved.nisn     || '';
+        passwordInput.value = saved.password || '';
+      }
+    });
     const studentData = ref({
       nisn: '', nama: '', kelas: '',
-      nilaiAmbang: '', kehadiranAmbang: '',
+      nilaiAmbang: '',
+      kehadiranAmbang: '',
       rawSchedule: '', rawAttendanceData: '',
       rawAssessmentData: '', rawNotesData: '',
       abList: [], nlList: []
@@ -2384,19 +2759,18 @@ createApp({
       if (el) el.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
-
     const tabs = [
-      { id: 'home',       name: 'Home',      icon: 'fas fa-home'         },
-      { id: 'attendance', name: 'Kehadiran', icon: 'fas fa-check-circle'  },
-      { id: 'assessment', name: 'Penilaian', icon: 'fas fa-star'          },
-      { id: 'notes',      name: 'Catatan',   icon: 'fas fa-sticky-note'   },
-      { id: 'server',     name: 'Server',    icon: 'fas fa-server'        },
+      { id: 'home',       name: 'Home',     icon: 'fas fa-home'        },
+      { id: 'attendance', name: 'Kehadiran', icon: 'fas fa-check-circle' },
+      { id: 'assessment', name: 'Penilaian', icon: 'fas fa-star'         },
+      { id: 'notes',      name: 'Catatan',   icon: 'fas fa-sticky-note'  },
+      { id: 'server',     name: 'Server',    icon: 'fas fa-server'       },
     ];
 
-    const showAttendanceModal      = ref(false);
-    const showAssessmentModal      = ref(false);
-    const selectedAttendanceIndex  = ref(null);
-    const selectedAssessmentIndex  = ref(null);
+    const showAttendanceModal = ref(false);
+    const showAssessmentModal = ref(false);
+    const selectedAttendanceIndex = ref(null);
+    const selectedAssessmentIndex = ref(null);
 
     const activeSub     = ref(null);
     const pwOld         = ref('');
@@ -2418,127 +2792,73 @@ createApp({
       document.body.style.overflow = '';
     };
 
-    const resetAllData = () => {
-      try {
-        localStorage.removeItem(STORE_KEY);
-        sessionStorage.removeItem(STORE_KEY);
-        sessionStorage.setItem('sp5p_logged_out', '1');
-
-        nisnInput.value     = '';
-        passwordInput.value = '';
-        loggedIn.value      = false;
-        currentTab.value    = 'home';
-        showResetConfirm.value = false;
-        document.body.style.overflow = '';
-
-        studentData.value = {
-          nisn: '', nama: '', kelas: '',
-          nilaiAmbang: '', kehadiranAmbang: '',
-          rawSchedule: '', rawAttendanceData: '',
-          rawAssessmentData: '', rawNotesData: '',
-          abList: [], nlList: []
-        };
-      } catch (e) {
-        window.location.reload();
-      }
-    };
-
     const doChangePassword = async () => {
       pwMsg.value = '';
 
       // ── Validasi input ──────────────────────────────────────────────
       if (!pwOld.value) {
-        pwMsg.value = 'Password lama harus diisi.';
-        pwMsgType.value = 'err'; return;
+        pwMsg.value = 'Password lama harus diisi.'; pwMsgType.value = 'err'; return;
       }
-      const saved = await loadSaved();
-      if (pwOld.value !== (saved?.password || '')) {
-        pwMsg.value = 'Password lama tidak sesuai.';
-        pwMsgType.value = 'err'; return;
+      // Cek password lama dari data in-memory (window.SISWA_DATA)
+      const nisn         = studentData.value.nisn || '';
+      const sem          = selectedSemester.value || 'GANJIL';
+      const dataRow      = window.SISWA_DATA?.[sem]?.[nisn];
+      const storedPw     = dataRow ? (dataRow.password || '').trim() : '';
+      const validOldPw   = storedPw === '' ? nisn : storedPw;
+      if (pwOld.value !== validOldPw) {
+        pwMsg.value = 'Password lama tidak sesuai.'; pwMsgType.value = 'err'; return;
       }
       if (!pwNew.value) {
-        pwMsg.value = 'Password baru harus diisi.';
-        pwMsgType.value = 'err'; return;
+        pwMsg.value = 'Password baru harus diisi.'; pwMsgType.value = 'err'; return;
       }
       if (pwNew.value.length < 4) {
-        pwMsg.value = 'Password baru minimal 4 karakter.';
-        pwMsgType.value = 'err'; return;
+        pwMsg.value = 'Password baru minimal 4 karakter.'; pwMsgType.value = 'err'; return;
       }
       if (pwNew.value !== pwConfirm.value) {
-        pwMsg.value = 'Konfirmasi password baru tidak cocok.';
-        pwMsgType.value = 'err'; return;
+        pwMsg.value = 'Konfirmasi password baru tidak cocok.'; pwMsgType.value = 'err'; return;
       }
       if (pwNew.value === pwOld.value) {
-        pwMsg.value = 'Password baru tidak boleh sama dengan password lama.';
+        pwMsg.value = 'Password baru tidak boleh sama dengan password lama.'; pwMsgType.value = 'err'; return;
+      }
+
+      // ── Cek gasUrl ──────────────────────────────────────────────────
+      const gasUrl = (window.GITHUB_CONFIG || {}).gasUrl || '';
+      if (!gasUrl) {
+        pwMsg.value = '⚠️ gasUrl belum diisi di config.js. Hubungi admin untuk mengaktifkan fitur ini.';
         pwMsgType.value = 'err'; return;
       }
 
-      // ── Ambil gasUrl dari config.js ─────────────────────────────────
-      const gasUrl = (window.GITHUB_CONFIG || {}).gasUrl || '';
-
-      if (!gasUrl) {
-        // Tidak ada gasUrl → simpan lokal saja (mode offline)
-        await saveSession(saved?.nisn || '', saved?.kelas || '', pwNew.value);
-        passwordInput.value = pwNew.value;
-        // Update in-memory agar re-login di tab ini berhasil
-        ['GANJIL','GENAP'].forEach(sem => {
-          if (window.SISWA_DATA?.[sem]?.[saved?.nisn]) {
-            window.SISWA_DATA[sem][saved.nisn].password = pwNew.value;
-          }
-        });
-        pwLoading.value = false;
-        pwMsgType.value = 'ok';
-        pwMsg.value = '⚠️ gasUrl belum diisi di config.js. Password hanya tersimpan di sesi ini.';
-        pwOld.value = ''; pwNew.value = ''; pwConfirm.value = '';
-        return;
-      }
-
-      // ── Kirim ke Apps Script via POST ───────────────────────────────
+      // ── Kirim ke Apps Script Web App ────────────────────────────────
       pwLoading.value = true;
       try {
-        const nisn = saved?.nisn || studentData.value.nisn || '';
-
         const res = await fetch(gasUrl, {
           method:  'POST',
-          // Apps Script doPost() membaca e.postData.contents sebagai string JSON
-          // Gunakan text/plain agar tidak di-preflight CORS
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body:    JSON.stringify({ nisn, newPassword: pwNew.value }),
         });
 
-        // Apps Script selalu mengembalikan HTTP 200 meski ada error internal,
-        // jadi kita cek body JSON-nya
         let result = { success: false, message: 'Tidak ada respons dari server.' };
-        try {
-          const text = await res.text();
-          result = JSON.parse(text);
-        } catch (_) { /* parse error — tetap lanjut ke cek di bawah */ }
+        try { result = JSON.parse(await res.text()); } catch (_) {}
 
-        if (!result.success) {
-          throw new Error(result.message || 'Server menolak permintaan.');
-        }
+        if (!result.success) throw new Error(result.message || 'Server menolak permintaan.');
 
-        // ── Berhasil: perbarui session lokal & in-memory ─────────────
-        await saveSession(nisn, saved?.kelas || '', pwNew.value);
-        passwordInput.value = pwNew.value;
-        ['GANJIL','GENAP'].forEach(sem => {
-          if (window.SISWA_DATA?.[sem]?.[nisn]) {
-            window.SISWA_DATA[sem][nisn].password = pwNew.value;
-          }
-        });
+        // ── Berhasil: simpan session baru & refresh halaman ─────────
+        await saveSession(nisn, studentData.value.kelas || '', pwNew.value);
 
         pwLoading.value = false;
         pwMsgType.value = 'ok';
-        pwMsg.value = '✅ Password berhasil diperbarui di Google Sheet & GitHub!';
+        pwMsg.value = '✅ Password berhasil diperbarui! Halaman akan dimuat ulang...';
         pwOld.value = ''; pwNew.value = ''; pwConfirm.value = '';
+
+        // Tunggu 1.5 detik agar pesan terbaca, lalu refresh
+        setTimeout(() => { window.location.reload(); }, 1500);
 
       } catch (err) {
         pwLoading.value = false;
         pwMsgType.value = 'err';
-        // Pesan ramah untuk error CORS (terjadi jika gasUrl salah / belum di-deploy)
         const msg = err.message || '';
         if (msg.toLowerCase().includes('failed to fetch') || msg.toLowerCase().includes('networkerror')) {
-          pwMsg.value = 'Gagal terhubung ke server. Periksa gasUrl di config.js dan pastikan Web App sudah di-deploy dengan akses "Anyone".';
+          pwMsg.value = 'Gagal terhubung ke server. Pastikan gasUrl di config.js benar dan Web App sudah di-deploy dengan akses "Anyone".';
         } else {
           pwMsg.value = 'Gagal: ' + msg;
         }
@@ -2546,48 +2866,57 @@ createApp({
     };
 
     const downloadPdf = () => {
-      const d = studentData.value;
+  const d = studentData.value;
 
-      const getAssessmentDetailForMapel = (mapelName) => {
-        const idx = parsedAssessment.value.findIndex(a => a.mapel === mapelName);
-        if (idx === -1) return [];
-        const raw = d.nlList ? d.nlList[idx] : '';
-        if (!raw) return [];
-        const parts = raw.split(',').map(s => s.trim());
-        if (parts.length < 2) return [];
-        const tugasList = parts[0].split('@').filter(s => s);
-        const nilaiList = parts[1].split('@').filter(s => s);
-        const len = Math.max(tugasList.length, nilaiList.length);
-        const ambang = parseFloat(d.nilaiAmbang) || 0;
-        return Array.from({ length: len }, (_, i) => {
-          const nilaiStr = tugasList[i] || '';
-          const patokan  = nilaiList[i] !== undefined ? (parseFloat(nilaiList[i]) || 0) : (parseFloat(nilaiStr) || 0);
-          let keterangan;
-          if (isNaN(patokan) || patokan === 0 || nilaiStr === '') keterangan = 'Belum Dinilai';
-          else if (patokan <= ambang) keterangan = 'Perlu Perbaikan';
-          else keterangan = 'Sudah Dinilai';
-          return { nilai: nilaiStr, keterangan };
-        });
-      };
+  // ── Helper: ambil detail penilaian untuk mapel tertentu ──
+  const getAssessmentDetailForMapel = (mapelName) => {
+    const idx = parsedAssessment.value.findIndex(a => a.mapel === mapelName);
+    if (idx === -1) return [];
+    const raw = d.nlList ? d.nlList[idx] : '';
+    if (!raw) return [];
+    const parts = raw.split(',').map(s => s.trim());
+    if (parts.length < 2) return [];
+    const tugasList = parts[0].split('@').filter(s => s);
+    const nilaiList = parts[1].split('@').filter(s => s);
+    const len = Math.max(tugasList.length, nilaiList.length);
+    const ambang = parseFloat(d.nilaiAmbang) || 0;
+    return Array.from({ length: len }, (_, i) => {
+      const nilaiStr = tugasList[i] || '';
+      const patokan = nilaiList[i] !== undefined ? (parseFloat(nilaiList[i]) || 0) : (parseFloat(nilaiStr) || 0);
+      let keterangan;
+      if (isNaN(patokan) || patokan === 0 || nilaiStr === '') keterangan = 'Belum Dinilai';
+      else if (patokan <= ambang) keterangan = 'Perlu Perbaikan';
+      else keterangan = 'Sudah Dinilai';
+      return { nilai: nilaiStr, keterangan };
+    });
+  };
 
-      const mapelSet = new Set();
-      parsedAttendance.value.forEach(a => mapelSet.add(a.mapel));
-      parsedAssessment.value.forEach(a => mapelSet.add(a.mapel));
-      parsedNotes.value.forEach(n => mapelSet.add(n.mapel));
-      const mapelList = [...mapelSet].sort((a, b) => a.localeCompare(b));
+  // ── Kumpulkan semua mapel ──
+  const mapelSet = new Set();
+  parsedAttendance.value.forEach(a => mapelSet.add(a.mapel));
+  parsedAssessment.value.forEach(a => mapelSet.add(a.mapel));
+  parsedNotes.value.forEach(n => mapelSet.add(n.mapel));
+  const mapelList = [...mapelSet].sort((a, b) => a.localeCompare(b));
 
-      if (mapelList.length === 0) {
-        alert('Belum ada data akademik untuk diunduh.');
-        return;
-      }
+  if (mapelList.length === 0) {
+    alert('Belum ada data akademik untuk diunduh.');
+    return;
+  }
 
-      let html = `<!DOCTYPE html>
+  // ── Bangun HTML ──
+  let html = `<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rekap Akademik - ${d.nama}</title>
 <style>
-  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1f2937; margin: 40px; background: #fff; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1f2937;
+    margin: 40px;
+    background: #fff;
+  }
   h1 { color: #0a1628; font-size: 24px; margin-top: 0; }
   .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 30px; }
   h2 { color: #0f2045; border-bottom: 2px solid #00b4d8; padding-bottom: 6px; margin-top: 30px; }
@@ -2595,11 +2924,19 @@ createApp({
   table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
   th { background: #f3f4f6; text-align: left; padding: 8px; }
   td { padding: 8px; border-bottom: 1px solid #e5e7eb; }
-  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-weight: 600; font-size: 11px; }
+  .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-weight: 600; font-size: 11px;
+  }
   .bg-green { background: #dcfce7; color: #166534; }
   .bg-yellow { background: #fffbeb; color: #92400e; }
   .bg-red { background: #fee2e2; color: #991b1b; }
-  .catatan-box { background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 16px; }
+  .catatan-box {
+    background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 16px;
+  }
+  @media print {
+    body { margin: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -2607,62 +2944,174 @@ createApp({
   <p class="subtitle">SMAN 5 Pinrang — ${d.nama} / ${d.nisn} / ${d.kelas}</p>
 `;
 
-      mapelList.forEach(mapel => {
-        html += `<h2>📘 ${mapel}</h2>`;
-        const att = parsedAttendance.value.find(a => a.mapel === mapel);
-        if (att) {
-          const total = att.h + att.ht + att.i + att.s + att.a + att.b;
-          html += `<h3>✅ Kehadiran</h3>
-          <table>
-            <tr><th>Status</th><th>Jumlah</th></tr>
-            <tr><td>Hadir</td><td>${att.h}</td></tr>
-            <tr><td>Hadir Terlambat</td><td>${att.ht}</td></tr>
-            <tr><td>Izin</td><td>${att.i}</td></tr>
-            <tr><td>Sakit</td><td>${att.s}</td></tr>
-            <tr><td>Alpa</td><td>${att.a}</td></tr>
-            <tr><td>Bolos</td><td>${att.b}</td></tr>
-            <tr><td><strong>Total Pertemuan</strong></td><td><strong>${total}</strong></td></tr>
-            <tr><td><strong>Persentase Hadir</strong></td><td><strong>${att.percentage.toFixed(1)}%</strong></td></tr>
-          </table>`;
-        } else {
-          html += `<p style="color:#9ca3af;">Tidak ada data kehadiran.</p>`;
-        }
+  mapelList.forEach(mapel => {
+    html += `<h2>📘 ${mapel}</h2>`;
 
-        const detailPenilaian = getAssessmentDetailForMapel(mapel);
-        if (detailPenilaian.length > 0) {
-          html += `<h3>📝 Penilaian</h3><table><tr><th>No</th><th>Tugas / Nilai</th><th>Keterangan</th></tr>`;
-          detailPenilaian.forEach((item, i) => {
-            let cls = item.keterangan === 'Sudah Dinilai' ? 'bg-green' : item.keterangan === 'Perlu Perbaikan' ? 'bg-yellow' : 'bg-red';
-            html += `<tr><td>${i+1}</td><td>${item.nilai || '-'}</td><td><span class="badge ${cls}">${item.keterangan}</span></td></tr>`;
-          });
-          html += `</table>`;
-        } else {
-          html += `<p style="color:#9ca3af;">Tidak ada data penilaian.</p>`;
-        }
+    // Kehadiran
+    const att = parsedAttendance.value.find(a => a.mapel === mapel);
+    if (att) {
+      const total = att.h + att.ht + att.i + att.s + att.a + att.b;
+      html += `<h3>✅ Kehadiran</h3>
+      <table>
+        <tr><th>Status</th><th>Jumlah</th></tr>
+        <tr><td>Hadir</td><td>${att.h}</td></tr>
+        <tr><td>Hadir Terlambat</td><td>${att.ht}</td></tr>
+        <tr><td>Izin</td><td>${att.i}</td></tr>
+        <tr><td>Sakit</td><td>${att.s}</td></tr>
+        <tr><td>Alpa</td><td>${att.a}</td></tr>
+        <tr><td>Bolos</td><td>${att.b}</td></tr>
+        <tr><td><strong>Total Pertemuan</strong></td><td><strong>${total}</strong></td></tr>
+        <tr><td><strong>Persentase Hadir</strong></td><td><strong>${att.percentage.toFixed(1)}%</strong></td></tr>
+      </table>`;
+    } else {
+      html += `<p style="color:#9ca3af;">Tidak ada data kehadiran.</p>`;
+    }
 
-        const catatan = parsedNotes.value.filter(n => n.mapel === mapel);
-        if (catatan.length > 0) {
-          html += `<h3>📋 Catatan Guru</h3>`;
-          catatan.forEach(c => {
-            html += `<div class="catatan-box"><strong>${c.typeLabel}</strong>: ${c.content}</div>`;
-          });
-        } else {
-          html += `<p style="color:#9ca3af;">Tidak ada catatan.</p>`;
-        }
+    // Penilaian
+    const detailPenilaian = getAssessmentDetailForMapel(mapel);
+    if (detailPenilaian.length > 0) {
+      html += `<h3>📝 Penilaian</h3>
+      <table>
+        <tr><th>No</th><th>Tugas / Nilai</th><th>Keterangan</th></tr>`;
+      detailPenilaian.forEach((item, i) => {
+        let cls = '';
+        if (item.keterangan === 'Sudah Dinilai') cls = 'bg-green';
+        else if (item.keterangan === 'Perlu Perbaikan') cls = 'bg-yellow';
+        else cls = 'bg-red';
+        html += `<tr>
+          <td>${i+1}</td>
+          <td>${item.nilai || '-'}</td>
+          <td><span class="badge ${cls}">${item.keterangan}</span></td>
+        </tr>`;
       });
+      html += `</table>`;
+    } else {
+      html += `<p style="color:#9ca3af;">Tidak ada data penilaian.</p>`;
+    }
 
-      html += `</body></html>`;
+    // Catatan
+    const catatan = parsedNotes.value.filter(n => n.mapel === mapel);
+    if (catatan.length > 0) {
+      html += `<h3>📋 Catatan Guru</h3>`;
+      catatan.forEach(c => {
+        html += `<div class="catatan-box">
+          <strong>${c.typeLabel}</strong>: ${c.content}
+        </div>`;
+      });
+    } else {
+      html += `<p style="color:#9ca3af;">Tidak ada catatan.</p>`;
+    }
+  });
 
-      const blob = new Blob([html], { type: 'text/html' });
-      const url  = URL.createObjectURL(blob);
-      const a    = document.createElement('a');
-      a.href     = url;
-      a.download = `Rekap_${d.nama.replace(/\s/g, '_')}_${d.kelas}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    };
+  html += `
+</body>
+</html>`;
+
+  // ── Unduh sebagai file .html ──
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Rekap_${d.nama.replace(/\s/g, '_')}_${d.kelas}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ── Fungsi pembantu: bangun HTML per mapel ──
+function buildMapelHTML(mapel, getAssessmentDetailForMapel) {
+  const d = studentData.value; // pastikan ini bisa diakses, bisa juga dikirim via parameter
+  let html = '';
+  html += `<h2 style="color: #0f2045; border-bottom: 2px solid #00b4d8; padding-bottom: 6px; margin-top: 10px;">📘 ${mapel}</h2>`;
+
+  // Kehadiran
+  const att = parsedAttendance.value.find(a => a.mapel === mapel);
+  if (att) {
+    const total = att.h + att.ht + att.i + att.s + att.a + att.b;
+    html += `<h3>✅ Kehadiran</h3>
+    <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:20px;">
+      <tr style="background:#f3f4f6;"><th>Status</th><th>Jumlah</th></tr>
+      <tr><td>Hadir</td><td>${att.h}</td></tr>
+      <tr><td>Hadir Terlambat</td><td>${att.ht}</td></tr>
+      <tr><td>Izin</td><td>${att.i}</td></tr>
+      <tr><td>Sakit</td><td>${att.s}</td></tr>
+      <tr><td>Alpa</td><td>${att.a}</td></tr>
+      <tr><td>Bolos</td><td>${att.b}</td></tr>
+      <tr style="font-weight:700"><td>Total Pertemuan</td><td>${total}</td></tr>
+      <tr style="font-weight:700"><td>Persentase Hadir</td><td>${att.percentage.toFixed(1)}%</td></tr>
+    </table>`;
+  } else {
+    html += '<p style="color:#9ca3af;">Tidak ada data kehadiran.</p>';
+  }
+
+  // Penilaian
+  const detailPenilaian = getAssessmentDetailForMapel(mapel);
+  if (detailPenilaian.length > 0) {
+    html += `<h3>📝 Penilaian</h3>
+    <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:20px;">
+      <tr style="background:#f3f4f6;"><th>No</th><th>Tugas/Nilai</th><th>Keterangan</th></tr>`;
+    detailPenilaian.forEach((item, i) => {
+      let cls = '';
+      if (item.keterangan === 'Sudah Dinilai') cls = 'background:#dcfce7; color:#166534;';
+      else if (item.keterangan === 'Perlu Perbaikan') cls = 'background:#fffbeb; color:#92400e;';
+      else cls = 'background:#fee2e2; color:#991b1b;';
+      html += `<tr>
+        <td>${i+1}</td>
+        <td>${item.nilai || '-'}</td>
+        <td><span style="display:inline-block;padding:2px 10px;border-radius:12px;font-weight:600;font-size:11px;${cls}">${item.keterangan}</span></td>
+      </tr>`;
+    });
+    html += '</table>';
+  } else {
+    html += '<p style="color:#9ca3af;">Tidak ada data penilaian.</p>';
+  }
+
+  // Catatan
+  const catatan = parsedNotes.value.filter(n => n.mapel === mapel);
+  if (catatan.length > 0) {
+    html += `<h3>📋 Catatan Guru</h3>
+    <table style="width:100%; border-collapse:collapse; font-size:13px; margin-bottom:20px;">
+      <tr style="background:#f3f4f6;"><th>Tipe</th><th>Isi Catatan</th><th>Terakhir Diperbarui</th></tr>`;
+    catatan.forEach(c => {
+      const lastUpdateText = c.lastUpdate ? c.lastUpdate : 'belum pernah di update';
+      html += `<tr>
+        <td><span style="display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;background:${c.bg};color:${c.color}">${c.typeLabel}</span></td>
+        <td>${c.content}</td>
+        <td style="font-size:12px;color:#6b7280">${lastUpdateText}</td>
+      </tr>`;
+    });
+    html += '</table>';
+  } else {
+    html += '<p style="color:#9ca3af;">Tidak ada catatan.</p>';
+  }
+  return html;
+}
+
+
+
+
 
     const login = async () => {
       if (!nisnInput.value || !passwordInput.value) {
@@ -2673,15 +3122,18 @@ createApp({
       errorMessage.value = '';
 
       try {
+        // ── Ambil data dari datasiswa.js (window.SISWA_DATA) ──
+        // datasiswa.js selalu dimuat ulang saat halaman di-refresh/buka
+        // sehingga window.SISWA_DATA dijamin data terbaru dari GitHub Pages
         const db = window.SISWA_DATA;
-        if (!db) throw new Error('Database datasiswa.js belum dimuat.');
+        if (!db) throw new Error('Database datasiswa.js belum dimuat. Refresh halaman dan coba lagi.');
 
-        const semester     = selectedSemester.value || 'GANJIL';
+        const semester = selectedSemester.value || 'GANJIL';
         const semesterData = db[semester];
         if (!semesterData) throw new Error('Data semester ' + semester + ' tidak ditemukan.');
 
         const nisnStr = nisnInput.value.toString().trim();
-        const row     = semesterData[nisnStr];
+        const row = semesterData[nisnStr];
 
         if (!row) {
           loading.value = false;
@@ -2689,6 +3141,7 @@ createApp({
           return;
         }
 
+        // Cek password: kosong = gunakan NISN sebagai default
         const storedPassword = (row.password || '').trim();
         const validPassword  = storedPassword === '' ? nisnStr : storedPassword;
 
@@ -2698,8 +3151,9 @@ createApp({
           return;
         }
 
+        // Login sukses
         const result = {
-          success:           true,
+          success: true,
           nisn:              nisnStr,
           rawSchedule:       row.rawSchedule       || '',
           rawAttendanceData: row.rawAttendanceData  || '',
@@ -2725,40 +3179,39 @@ createApp({
     };
 
     const logout = () => {
-      sessionStorage.setItem('sp5p_logged_out', '1');
-      loggedIn.value   = false;
-      currentTab.value = 'home';
-      document.body.style.overflow = '';
-
-      studentData.value = {
-        nisn: '', nama: '', kelas: '',
-        nilaiAmbang: '', kehadiranAmbang: '',
-        rawSchedule: '', rawAttendanceData: '',
-        rawAssessmentData: '', rawNotesData: '',
-        abList: [], nlList: []
-      };
-
-      loadSaved().then(s => {
-        if (s) {
-          nisnInput.value     = s.nisn     || '';
-          passwordInput.value = s.password || '';
-        }
+      // Simpan NISN & password agar auto-fill tetap tersedia setelah reload
+      saveSession(
+        studentData.value.nisn || nisnInput.value || '',
+        studentData.value.kelas || '',
+        passwordInput.value || ''
+      ).then(() => {
+        // Reload penuh — datasiswa.js dimuat ulang fresh dari server
+        window.location.reload();
       });
     };
 
-    // ── PARSED DATA ──
+
+
+
+
+
+
+
+
+
+
     const parsedSchedule = computed(() => {
       if (!studentData.value.rawSchedule) return [];
       return studentData.value.rawSchedule.split('#').filter(i => i.trim()).map(entry => {
-        const parts      = entry.split('@');
+        const parts = entry.split('@');
         const statusCode = parts[3] ? parts[3].trim() : '*';
         const map = {
-          'H':  { text:'Hadir',            icon:'fas fa-check-circle'      },
-          'HT': { text:'Hadir Terlambat',  icon:'fas fa-clock'             },
-          'I':  { text:'Izin',             icon:'fas fa-file-alt'          },
-          'S':  { text:'Sakit',            icon:'fas fa-thermometer-half'  },
-          'A':  { text:'Alpa',             icon:'fas fa-times-circle'      },
-          'B':  { text:'Bolos',            icon:'fas fa-skull'             }
+          'H':  { text:'Hadir', icon:'fas fa-check-circle' },
+          'HT': { text:'Hadir Terlambat', icon:'fas fa-clock' },
+          'I':  { text:'Izin', icon:'fas fa-file-alt' },
+          'S':  { text:'Sakit', icon:'fas fa-thermometer-half' },
+          'A':  { text:'Alpa', icon:'fas fa-times-circle' },
+          'B':  { text:'Bolos', icon:'fas fa-skull' }
         };
         const info = map[statusCode] || { text:'-', icon:'fas fa-calendar' };
         return { waktu:parts[0], mapel:parts[1], guru:parts[2], statusRaw:statusCode, statusText:info.text, iconClass:info.icon };
@@ -2767,12 +3220,12 @@ createApp({
 
     const parsedAttendance = computed(() => {
       if (!studentData.value.rawAttendanceData) return [];
-      return studentData.value.rawAttendanceData.split('#').filter(i => i.trim()).map((entry) => {
+      return studentData.value.rawAttendanceData.split('#').filter(i => i.trim()).map((entry, idx) => {
         const parts = entry.split('@');
-        const h=parseInt(parts[2]||'0'), ht=parseInt(parts[3]||'0'), i=parseInt(parts[4]||'0'), s=parseInt(parts[5]||'0'), a=parseInt(parts[6]||'0'), b=parseInt(parts[7]||'0');
+        const h=parseInt(parts[2]||'0'),ht=parseInt(parts[3]||'0'),i=parseInt(parts[4]||'0'),s=parseInt(parts[5]||'0'),a=parseInt(parts[6]||'0'),b=parseInt(parts[7]||'0');
         const totalHadir = h+ht+i+s;
-        const totalAll   = totalHadir+a+b;
-        const pct        = totalAll > 0 ? (totalHadir/totalAll)*100 : 0;
+        const totalAll = totalHadir+a+b;
+        const pct = totalAll > 0 ? (totalHadir/totalAll)*100 : 0;
         return { mapel:parts[0]||'Mata Pelajaran', guru:parts[1]||'Guru', h,ht,i,s,a,b, percentage:pct };
       });
     });
@@ -2782,7 +3235,7 @@ createApp({
       const ambang = parseFloat(studentData.value.nilaiAmbang) || 0;
       return studentData.value.rawAssessmentData.split('#').filter(i => i.trim()).map((entry, idx) => {
         const parts = entry.split('@');
-        const raw   = studentData.value.nlList?.[idx] || '';
+        const raw = studentData.value.nlList?.[idx] || '';
         let remaining = 0;
         if (raw) {
           const nlParts   = raw.split(',').map(s => s.trim());
@@ -2792,8 +3245,10 @@ createApp({
           for (let i = 0; i < len; i++) {
             const nilaiStr = tugasList[i] || '';
             const patokan  = nilaiList[i] !== undefined ? (parseFloat(nilaiList[i]) || 0) : (parseFloat(nilaiStr) || 0);
-            if (isNaN(patokan) || patokan === 0 || nilaiStr === '') remaining++;
-            else if (patokan <= ambang) remaining++;
+            // Hitung sama persis dengan label di assessmentDetailParsed:
+            // "Belum Dinilai" atau "Perlu Perbaikan" → masuk remaining
+            if (isNaN(patokan) || patokan === 0 || nilaiStr === '') remaining++; // Belum Dinilai
+            else if (patokan <= ambang) remaining++;                             // Perlu Perbaikan
           }
         }
         return { mapel: parts[0] || 'Mata Pelajaran', guru: parts[1] || 'Guru', remaining };
@@ -2801,85 +3256,112 @@ createApp({
     });
 
     const NOTE_TYPE = {
-      'AP': { label:'Apresiasi',        icon:'fas fa-award',             border:'#10b981', bg:'#ecfdf5', color:'#059669', shadow:'rgba(16,185,129,0.18)'  },
-      'PP': { label:'Perlu Perhatian',  icon:'fas fa-exclamation-circle', border:'#f97316', bg:'#fff7ed', color:'#ea580c', shadow:'rgba(249,115,22,0.18)'  },
-      'PD': { label:'Perlu Dukungan',   icon:'fas fa-hands-helping',      border:'#3b82f6', bg:'#eff6ff', color:'#2563eb', shadow:'rgba(59,130,246,0.18)'  },
-      'PB': { label:'Perlu Bimbingan',  icon:'fas fa-life-ring',          border:'#ef4444', bg:'#fef2f2', color:'#dc2626', shadow:'rgba(239,68,68,0.18)'   },
-      'N':  { label:'None',             icon:'fas fa-minus-circle',       border:'#6b7280', bg:'#f3f4f6', color:'#374151', shadow:'rgba(107,114,128,0.12)' },
+  'AP': { label:'Apresiasi',       icon:'fas fa-award',            border:'#10b981', bg:'#ecfdf5', color:'#059669', shadow:'rgba(16,185,129,0.18)'  },
+  'PP': { label:'Perlu Perhatian', icon:'fas fa-exclamation-circle', border:'#f97316', bg:'#fff7ed', color:'#ea580c', shadow:'rgba(249,115,22,0.18)'  },
+  'PD': { label:'Perlu Dukungan',  icon:'fas fa-hands-helping',     border:'#3b82f6', bg:'#eff6ff', color:'#2563eb', shadow:'rgba(59,130,246,0.18)'  },
+  'PB': { label:'Perlu Bimbingan', icon:'fas fa-life-ring',         border:'#ef4444', bg:'#fef2f2', color:'#dc2626', shadow:'rgba(239,68,68,0.18)'   },
+  'N':  { label:'None',            icon:'fas fa-minus-circle',      border:'#6b7280', bg:'#f3f4f6', color:'#374151', shadow:'rgba(107,114,128,0.12)' },
+};
+
+const DATE_PATTERN = /^\d{1,2}\s\w+\s\d{4}$/;
+
+const parsedNotes = computed(() => {
+  if (!studentData.value.rawNotesData) return [];
+  return studentData.value.rawNotesData.split('%').filter(i => i.trim().length > 5).map(entry => {
+    const main    = entry.split('#');
+    const details = (main[0]||'').split('@');
+    const originalType = (details[2]||'N').trim();
+    const typeCode = originalType.toUpperCase();
+    const content  = (main[1]||'-').trim();
+    let meta = NOTE_TYPE[typeCode] || NOTE_TYPE['N'];
+    // Jika typeCode adalah tanggal (contoh: "22 April 2026")
+    if (DATE_PATTERN.test(originalType)) {
+      meta = {
+        label: 'update - ' + originalType,
+        icon: 'fas fa-calendar-alt',
+        border: '#f97316',
+        bg: '#fff7ed',
+        color: '#ea580c',
+        shadow: 'rgba(249,115,22,0.18)'
+      };
+    }
+    return {
+      mapel: details[0]||'Unknown',
+      guru:  details[1]||'Unknown',
+      typeCode: originalType,   // tampilkan asli (tanggal) jika ada
+      typeLabel: meta.label,
+      typeIcon:  meta.icon,
+      border:    meta.border,
+      bg:        meta.bg,
+      color:     meta.color,
+      shadow:    meta.shadow,
+      content,
     };
+  });
+});
 
-    const DATE_PATTERN = /^\d{1,2}\s\w+\s\d{4}$/;
-
-    const parsedNotes = computed(() => {
-      if (!studentData.value.rawNotesData) return [];
-      return studentData.value.rawNotesData.split('%').filter(i => i.trim().length > 5).map(entry => {
-        const main          = entry.split('#');
-        const details       = (main[0]||'').split('@');
-        const originalType  = (details[2]||'N').trim();
-        const typeCode      = originalType.toUpperCase();
-        const content       = (main[1]||'-').trim();
-        let meta = NOTE_TYPE[typeCode] || NOTE_TYPE['N'];
-        if (DATE_PATTERN.test(originalType)) {
-          meta = {
-            label:  'update - ' + originalType,
-            icon:   'fas fa-calendar-alt',
-            border: '#f97316',
-            bg:     '#fff7ed',
-            color:  '#ea580c',
-            shadow: 'rgba(249,115,22,0.18)'
-          };
-        }
-        return {
-          mapel: details[0]||'Unknown', guru: details[1]||'Unknown',
-          typeCode: originalType, typeLabel: meta.label, typeIcon: meta.icon,
-          border: meta.border, bg: meta.bg, color: meta.color, shadow: meta.shadow,
-          content,
-        };
-      });
-    });
-
+    // Semester otomatis berdasarkan bulan realtime
+    
+        // ── Daftar semua bulan ──
     const ALL_MONTHS = [
-      { num:'01', label:'Januari' },  { num:'02', label:'Februari' },
-      { num:'03', label:'Maret' },    { num:'04', label:'April' },
-      { num:'05', label:'Mei' },      { num:'06', label:'Juni' },
-      { num:'07', label:'Juli' },     { num:'08', label:'Agustus' },
-      { num:'09', label:'September' },{ num:'10', label:'Oktober' },
-      { num:'11', label:'November' }, { num:'12', label:'Desember' }
+      { num:'01', label:'Januari' },
+      { num:'02', label:'Februari' },
+      { num:'03', label:'Maret' },
+      { num:'04', label:'April' },
+      { num:'05', label:'Mei' },
+      { num:'06', label:'Juni' },
+      { num:'07', label:'Juli' },
+      { num:'08', label:'Agustus' },
+      { num:'09', label:'September' },
+      { num:'10', label:'Oktober' },
+      { num:'11', label:'November' },
+      { num:'12', label:'Desember' }
     ];
 
+    // ── Tombol bulan mengikuti semester yang dipilih saat login ──
     const monthButtons = computed(() => {
       return selectedSemester.value === 'GENAP'
-        ? ALL_MONTHS.slice(0, 6)
-        : ALL_MONTHS.slice(6, 12);
+        ? ALL_MONTHS.slice(0, 6)   // Januari–Juni
+        : ALL_MONTHS.slice(6, 12); // Juli–Desember (default GANJIL)
     });
 
+    // ── Bulan yang dipilih pertama kali ──
+    // (bulan sekarang jika termasuk semester pilihan, kalau tidak ambil bulan pertama semester)
     const defaultMonth = (() => {
-      const cur     = String(new Date().getMonth() + 1).padStart(2, '0');
-      const buttons = selectedSemester.value === 'GENAP' ? ALL_MONTHS.slice(0, 6) : ALL_MONTHS.slice(6, 12);
-      return buttons.find(b => b.num === cur) ? cur : buttons[0].num;
-    })();
+  const cur = String(new Date().getMonth() + 1).padStart(2, '0');
+  const buttons = selectedSemester.value === 'GENAP'
+    ? ALL_MONTHS.slice(0, 6)
+    : ALL_MONTHS.slice(6, 12);
+  return buttons.find(b => b.num === cur) ? cur : buttons[0].num;
+})();
 
     const selectedChartMonth = ref(defaultMonth);
 
+    // ── Reset ke bulan pertama semester jika user ganti semester ──
     watch(selectedSemester, () => {
-      const buttons = selectedSemester.value === 'GENAP' ? ALL_MONTHS.slice(0, 6) : ALL_MONTHS.slice(6, 12);
+      const buttons = selectedSemester.value === 'GENAP'
+        ? ALL_MONTHS.slice(0, 6)
+        : ALL_MONTHS.slice(6, 12);
       selectedChartMonth.value = buttons[0].num;
     });
 
+    // Map nama bulan → nomor bulan 2-digit
     const MONTH_NAME_MAP = {
       'JAN':'01','FEB':'02','MAR':'03','APR':'04','MEI':'05','JUN':'06',
       'JUL':'07','AGU':'08','SEP':'09','OKT':'10','NOV':'11','DES':'12'
     };
 
+    // Helper: parse tanggal format MONTHNAME/DAY/YEAR → { monthNum:'01', day:'7' }
     const parseTanggal = (tgl) => {
       const seg = tgl.trim().toUpperCase().split('/');
       if (seg.length < 2) return null;
       const monthNum = MONTH_NAME_MAP[seg[0].trim()];
       if (!monthNum) return null;
-      const day = parseInt(seg[1]).toString();
+      const day = parseInt(seg[1]).toString(); // "07" → "7"
       return { monthNum, day };
     };
 
+    // Which months have any data in abList
     const availableMonths = computed(() => {
       const abList = studentData.value.abList || [];
       const set = new Set();
@@ -2896,19 +3378,21 @@ createApp({
     });
 
     const selectedMonthLabel = computed(() => {
+      // ⚠️ Perhatikan .value karena monthButtons sekarang computed
       const mb = monthButtons.value.find(m => m.num === selectedChartMonth.value);
       return mb ? mb.label : '';
     });
 
+    // Per-date chart data for the selected month (format: MONTHNAME/DAY/YEAR)
     const dailyChartData = computed(() => {
       const abList = studentData.value.abList || [];
       if (!abList.length) return [];
-      const dateMap    = {};
+      const dateMap = {};
       const targetMonth = selectedChartMonth.value;
 
       abList.forEach(raw => {
         if (!raw) return;
-        const parts       = raw.split(',').map(s => s.trim());
+        const parts = raw.split(',').map(s => s.trim());
         if (parts.length < 2) return;
         const tanggalList = parts[0].split('@').filter(s => s);
         const kodeList    = parts[1].split('@').filter(s => s);
@@ -2931,9 +3415,15 @@ createApp({
 
       return Object.entries(dateMap)
         .sort((a,b) => parseInt(a[0]) - parseInt(b[0]))
-        .map(([day, v]) => ({ dateKey: day, ...v, total: v.h+v.ht+v.i+v.s+v.a+v.b }));
+        .map(([day, v]) => ({
+          dateKey: day,
+          ...v,
+          total: v.h + v.ht + v.i + v.s + v.a + v.b
+        }));
     });
 
+
+    // Statistik persentase kehadiran bulan yang dipilih
     const monthlyAttendanceStats = computed(() => {
       const data = dailyChartData.value;
       if (!data.length) return null;
@@ -2941,21 +3431,23 @@ createApp({
       data.forEach(d => { h+=d.h; ht+=d.ht; i+=d.i; s+=d.s; a+=d.a; b+=d.b; });
       const total = h+ht+i+s+a+b;
       if (total === 0) return null;
-      const hadir     = h + ht;
+      const hadir = h + ht;
       const izinSakit = i + s;
       const alpabolos = a + b;
       return {
         hadir, ht, izinSakit, alpabolos, total,
-        pctHadir:     Math.round(hadir/total*100),
+        pctHadir:    Math.round(hadir/total*100),
         pctIzinSakit: Math.round(izinSakit/total*100),
-        pctAlpa:      Math.round(alpabolos/total*100),
+        pctAlpa:     Math.round(alpabolos/total*100),
       };
     });
 
+    // Y-axis max = jumlah mata pelajaran, dibatasi 8
     const dailyChartMaxTotal = computed(() => {
       return Math.min(Math.max(parsedAttendance.value.length, 1), 8);
     });
 
+    // Y-axis ticks: 0..max, dibatasi maksimal 8 mata pelajaran
     const yAxisTicks = computed(() => {
       const max = Math.min(dailyChartMaxTotal.value, 8);
       return Array.from({ length: max + 1 }, (_, i) => i).reverse();
@@ -2966,7 +3458,7 @@ createApp({
     const attendanceTotal = computed(() => {
       const data = parsedAttendance.value;
       if (!data.length) return { hadir:0, total:0 };
-      let h=0, t=0;
+      let h=0,t=0;
       data.forEach(d => { h+=d.h+d.ht+d.i+d.s; t+=d.h+d.ht+d.i+d.s+d.a+d.b; });
       return { hadir:h, total:t };
     });
@@ -2987,12 +3479,13 @@ createApp({
     };
 
     const closeModal = () => {
-      showAttendanceModal.value  = false;
-      showAssessmentModal.value  = false;
+      showAttendanceModal.value = false;
+      showAssessmentModal.value = false;
       selectedAttendanceIndex.value = null;
       selectedAssessmentIndex.value = null;
     };
 
+    // Watch reaktif — body scroll selalu sinkron dengan state modal
     watch([showAttendanceModal, showAssessmentModal], ([att, asmnt]) => {
       document.body.style.overflow = (att || asmnt) ? 'hidden' : '';
     });
@@ -3011,14 +3504,14 @@ createApp({
       if (selectedAttendanceIndex.value === null) return [];
       const raw = studentData.value.abList?.[selectedAttendanceIndex.value];
       if (!raw) return [];
-      const parts       = raw.split(',').map(s => s.trim());
+      const parts = raw.split(',').map(s => s.trim());
       if (parts.length < 2) return [];
-      const tanggalList    = parts[0].split('@').filter(s=>s);
+      const tanggalList = parts[0].split('@').filter(s=>s);
       const keteranganList = parts[1].split('@').filter(s=>s);
       const len = Math.min(tanggalList.length, keteranganList.length);
       const kodeMap = { H:'Hadir', HT:'Hadir Terlambat', I:'Izin', S:'Sakit', A:'Alpa', B:'Bolos' };
       return Array.from({length:len}, (_,i) => ({
-        tanggal:    tanggalList[i],
+        tanggal: tanggalList[i],
         keterangan: kodeMap[keteranganList[i]] || keteranganList[i]
       }));
     });
@@ -3027,15 +3520,15 @@ createApp({
       if (selectedAssessmentIndex.value === null) return [];
       const raw = studentData.value.nlList?.[selectedAssessmentIndex.value];
       if (!raw) return [];
-      const parts     = raw.split(',').map(s => s.trim());
+      const parts = raw.split(',').map(s => s.trim());
       if (parts.length < 2) return [];
       const tugasList = parts[0].split('@').filter(s=>s);
       const nilaiList = parts[1].split('@').filter(s=>s);
-      const len       = Math.max(tugasList.length, nilaiList.length);
-      const ambang    = parseFloat(studentData.value.nilaiAmbang) || 0;
+      const len = Math.max(tugasList.length, nilaiList.length);
+      const ambang = parseFloat(studentData.value.nilaiAmbang) || 0;
       return Array.from({length:len}, (_,i) => {
-        const nilaiStr  = tugasList[i]||'';
-        const patokan   = nilaiList[i] !== undefined ? (parseFloat(nilaiList[i])||0) : (parseFloat(nilaiStr)||0);
+        const nilaiStr = tugasList[i]||'';
+        const patokan = nilaiList[i] !== undefined ? (parseFloat(nilaiList[i])||0) : (parseFloat(nilaiStr)||0);
         let keterangan;
         if (isNaN(patokan)||patokan===0||nilaiStr==='') keterangan='Belum Dinilai';
         else if (patokan <= ambang) keterangan='Perlu Perbaikan';
@@ -3045,18 +3538,17 @@ createApp({
     });
 
     const getStatusBadgeClass = (code) => {
-      if (code==='H')  return 'bg-green';
+      if (code==='H') return 'bg-green';
       if (code==='HT') return 'bg-purple';
-      if (code==='I')  return 'bg-blue';
-      if (code==='S')  return 'bg-orange';
-      if (code==='A')  return 'bg-red';
-      if (code==='B')  return 'bg-dark';
+      if (code==='I') return 'bg-blue';
+      if (code==='S') return 'bg-orange';
+      if (code==='A') return 'bg-red';
+      if (code==='B') return 'bg-dark';
       return 'bg-gray';
     };
-
     return {
       loggedIn, loading, nisnInput, passwordInput, errorMessage, studentData,
-      logoSrc, bgImageSrc, showDownloadConfirm, showResetConfirm, resetAllData,
+      logoSrc, bgImageSrc, showDownloadConfirm,showResetConfirm,resetAllData,
       currentTab, tabs, login, logout, switchTab,
       parsedSchedule, parsedAttendance, parsedAssessment, parsedNotes,
       getStatusBadgeClass, attendanceTotal, attendancePercentage,
@@ -3072,25 +3564,32 @@ createApp({
       activeSub, openSub, closeSub,
       pwOld, pwNew, pwConfirm, pwMsg, pwMsgType, pwLoading,
       showPwOld, showPwNew, showPwConfirm,
-      doChangePassword, downloadPdf,
-      selectedSemester, showGenapOption,
+      doChangePassword, downloadPdf,selectedSemester,
+  showGenapOption,
     };
   }
 }).mount('#app');
 </script>
+<!-- DATABASE: Muat data siswa sebelum Vue app -->
+<script src="datasiswa.js"></script>
+<script src="config.js" onerror="console.warn('config.js tidak ditemukan, mode offline')"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-.bg-green  { background:#ecfdf5!important; color:#059669!important; border-radius:8px; }
+/* Badge override styles */
+.bg-green { background:#ecfdf5!important; color:#059669!important; border-radius:8px; }
 .bg-purple { background:#f5f3ff!important; color:#7c3aed!important; border-radius:8px; }
-.bg-blue   { background:#eff6ff!important; color:#2563eb!important; border-radius:8px; }
+.bg-blue { background:#eff6ff!important; color:#2563eb!important; border-radius:8px; }
 .bg-orange { background:#fff7ed!important; color:#ea580c!important; border-radius:8px; }
-.bg-red    { background:#fef2f2!important; color:#dc2626!important; border-radius:8px; }
-.bg-dark   { background:#111827!important; color:#f9fafb!important; border-radius:8px; }
-.bg-gray   { background:#f3f4f6!important; color:#6b7280!important; border-radius:8px; }
+.bg-red { background:#fef2f2!important; color:#dc2626!important; border-radius:8px; }
+.bg-dark { background:#111827!important; color:#f9fafb!important; border-radius:8px; }
+.bg-gray { background:#f3f4f6!important; color:#6b7280!important; border-radius:8px; }
 
+/* Tooltip transition */
 .bar-tip-enter-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .bar-tip-leave-active { transition: opacity 0.14s ease, transform 0.14s ease; }
-.bar-tip-enter-from   { opacity: 0; transform: translateY(-6px) scale(0.97); }
-.bar-tip-leave-to     { opacity: 0; transform: translateY(-4px) scale(0.97); }
+.bar-tip-enter-from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+.bar-tip-leave-to   { opacity: 0; transform: translateY(-4px) scale(0.97); }
 
 @media (min-width: 900px) {
   .btn-logout .logout-text { display: inline!important; }
